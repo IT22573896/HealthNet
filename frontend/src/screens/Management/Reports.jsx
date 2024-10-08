@@ -1,10 +1,9 @@
-import { Container, Row, Col } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../../styles/AdminDashboard.css";
+import { Col, Container, Row } from "react-bootstrap";
 import AdminDashboardSideNavbar from "../../components/AdminDashboardSideNavbar";
-import { Outlet } from "react-router-dom";
 
-const AdminDashboard = () => {
+import "../../styles/Reports.css";
+
+const Reports = () => {
   return (
     <Container fluid className="AdminDashboard">
       <Row>
@@ -12,11 +11,11 @@ const AdminDashboard = () => {
           <AdminDashboardSideNavbar /> {/* Add Side Navbar here */}
         </Col>
         <Col md={9}>
-          <Outlet />
+          <div className="report_list">Reports</div>
         </Col>
       </Row>
     </Container>
   );
 };
 
-export default AdminDashboard;
+export default Reports;

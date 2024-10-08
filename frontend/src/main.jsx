@@ -20,6 +20,13 @@ import DoctorPrivateRoute from "./components/DoctorPrivateRoute.jsx";
 import ManagementPrivateRoute from "./components/ManagementPrivateRoute.jsx";
 import DoctorDashboard from "./screens/Doctor/DoctorDashboard.jsx";
 import AdminDashboard from "./screens/Management/AdminDashboard.jsx";
+import Patients from "./screens/Management/Patients.jsx";
+import Reports from "./screens/Management/Reports.jsx";
+import Overview from "./screens/Management/Overview.jsx";
+import Appointments from "./screens/Management/Appointments.jsx";
+import Doctors from "./screens/Management/Doctors.jsx";
+import Payments from "./screens/Management/Payments.jsx";
+import Emergency from "./screens/Management/Emergency.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +46,13 @@ const router = createBrowserRouter(
       {/* Management Private Routes */}
       <Route path="" element={<ManagementPrivateRoute />}>
         <Route path="/managementdashboard" element={<AdminDashboard />} />
+        <Route path="/overview" element={<Overview />} />
+        <Route path="/patients" element={<Patients />} />
+        <Route path="/appointments" element={<Appointments />} />
+        <Route path="/doctors" element={<Doctors />} />
+        <Route path="/payments" element={<Payments />} />
+        <Route path="/emergency" element={<Emergency />} />
+        <Route path="/reports" element={<Reports />} />
       </Route>
     </Route>
   )
