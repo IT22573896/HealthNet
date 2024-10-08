@@ -1,36 +1,50 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
-} from 'react-router-dom';
-import './index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import store from './store';
-import { Provider } from 'react-redux';
-import HomeScreen from './screens/HomeScreen';
-import LoginScreen from './screens/LoginScreen.jsx';
-import RegisterScreen from './screens/RegisterScreen.jsx';
-import ProfileScreen from './screens/ProfileScreen.jsx';
-import PrivateRoute from './components/PrivateRoute.jsx';
+} from "react-router-dom";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import store from "./store";
+import { Provider } from "react-redux";
+import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/LoginScreen.jsx";
+import RegisterScreen from "./screens/RegisterScreen.jsx";
+import ProfileScreen from "./screens/ProfileScreen.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
+import DoctorPrivateRoute from "./components/DoctorPrivateRoute.jsx";
+import ManagementPrivateRoute from "./components/ManagementPrivateRoute.jsx";
+import DoctorDashboard from "./screens/Doctor/DoctorDashboard.jsx";
+import AdminDashboard from "./screens/Management/AdminDashboard.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App />}>
-      <Route index={true} path='/' element={<HomeScreen />} />
-      <Route path='/login' element={<LoginScreen />} />
-      <Route path='/register' element={<RegisterScreen />} />
-      <Route path='' element={<PrivateRoute />}>
-        <Route path='/profile' element={<ProfileScreen />} />
+    <Route path="/" element={<App />}>
+      <Route index={true} path="/" element={<HomeScreen />} />
+      <Route path="/login" element={<LoginScreen />} />
+      <Route path="/register" element={<RegisterScreen />} />
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/profile" element={<ProfileScreen />} />
+      </Route>
+
+      {/* Doctor Private Routes */}
+      <Route path="" element={<DoctorPrivateRoute />}>
+        <Route path="/docdashboard" element={<DoctorDashboard />} />
+      </Route>
+
+      {/* Management Private Routes */}
+      <Route path="" element={<ManagementPrivateRoute />}>
+        <Route path="/managementdashboard" element={<AdminDashboard />} />
       </Route>
     </Route>
   )
 );
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <React.StrictMode>
       <RouterProvider router={router} />

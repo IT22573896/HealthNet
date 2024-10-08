@@ -23,12 +23,39 @@ import serviceIcon from "../images/home/service.png";
 import supportIcon from "../images/home/support.png";
 import reportIcon from "../images/home/reportIcon.png";
 import emergencyIcon from "../images/home/emergencyIcon.png";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [showScroll, setShowScroll] = useState(false); // State to control button visibility
+
+  const handleScroll = () => {
+    // Show or hide the button based on scroll position
+    if (window.scrollY > 300) {
+      setShowScroll(true);
+    } else {
+      setShowScroll(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    // Scroll to the top of the page
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll); // Add scroll event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll); // Cleanup listener on unmount
+    };
+  }, []);
+
   return (
     <div>
       {/* Hero Section */}
-      <section className="text-light py-5 first_container">
+      <section id="home" className="text-light py-5 first_container">
         <Container>
           <Row className="align-items-center">
             {/* Left side: Text and Stats */}
@@ -65,7 +92,7 @@ const Hero = () => {
       </section>
 
       {/* About Us Section */}
-      <section className="py-5 section2">
+      <section id="about" className="py-5 section2">
         <Container>
           <Row>
             <Col md={6}>
@@ -98,7 +125,7 @@ const Hero = () => {
       </section>
 
       {/* Healthcare Solutions Section */}
-      <section className="py-5">
+      <section id="services" className="py-5">
         <Container>
           <h2 className="text-center mb-4">Health Care Solutions</h2>
           <Row>
@@ -165,7 +192,10 @@ const Hero = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="bg-primary text-light py-5 section3 rounded">
+      <section
+        id="features"
+        className="bg-primary text-light py-5 section3 rounded"
+      >
         <Container>
           <Row>
             <Col md={6}>
@@ -221,7 +251,7 @@ const Hero = () => {
       </section>
 
       {/* Our Experienced Doctors Section */}
-      <section className="py-5">
+      <section id="doctors" className="py-5">
         <Container>
           <h2 className="text-center mb-4">Our Experienced Doctors</h2>
           <Row>
@@ -272,8 +302,7 @@ const Hero = () => {
       </section>
 
       {/* Appointment Section */}
-      {/* Appointment Section */}
-      <section className="py-5 bg-light">
+      <section id="contact" className="py-5 bg-light">
         <Container>
           <h2 className="text-center mb-4">
             Make An Appointment To Visit Our Doctor
@@ -325,6 +354,40 @@ const Hero = () => {
           </Row>
         </Container>
       </footer>
+
+      {/* Back to Top Button */}
+      {showScroll && (
+        <button
+          onClick={scrollToTop}
+          className="back-to-top"
+          style={{
+            position: "fixed",
+            bottom: "30px",
+            right: "30px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            borderRadius: "50%",
+            width: "50px",
+            height: "50px",
+            fontSize: "18px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
+            transition: "background-color 0.3s",
+          }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "#0056b3")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "#007bff")
+          }
+        >
+          ↑
+        </button>
+      )}
     </div>
   );
 };

@@ -14,7 +14,7 @@ const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current path
+  const location = useLocation();
 
   const [logoutApiCall] = useLogoutMutation();
 
@@ -43,10 +43,28 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
+                <NavDropdown
+                  style={{ fontWeight: "bold" }}
+                  title={userInfo.name}
+                  id="username"
+                >
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
+
+                  {/* Role-Based Dashboard Dropdown */}
+                  {userInfo.role === "Doctor" && (
+                    <LinkContainer to="/docdashboard">
+                      <NavDropdown.Item>Doctor Dashboard</NavDropdown.Item>
+                    </LinkContainer>
+                  )}
+
+                  {userInfo.role === "Management" && (
+                    <LinkContainer to="/managementdashboard">
+                      <NavDropdown.Item>Management Dashboard</NavDropdown.Item>
+                    </LinkContainer>
+                  )}
+
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>
