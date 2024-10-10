@@ -40,6 +40,13 @@ const Navigation = () => {
                   Emergency Request
                 </NavDropdown.Item>
               </LinkContainer>
+
+              {/* Payment Gateway */}
+              <LinkContainer to="/payment">
+                <NavDropdown.Item href="#services">
+                  Payment Gateway
+                </NavDropdown.Item>
+              </LinkContainer>
             </NavDropdown>
 
             {/* Features */}

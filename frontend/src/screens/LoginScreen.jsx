@@ -84,7 +84,11 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+      </Form>
 
+      {isLoading ? (
+        <Loader />
+      ) : (
         <Button
           disabled={isLoading}
           type="submit"
@@ -93,9 +97,7 @@ const LoginScreen = () => {
         >
           Login
         </Button>
-      </Form>
-
-      {isLoading && <Loader />}
+      )}
 
       <Row className="py-3">
         <Col>

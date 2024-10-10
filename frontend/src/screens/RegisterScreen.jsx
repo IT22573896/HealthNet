@@ -183,11 +183,13 @@ const RegisterScreen = () => {
           </Col>
         </Row>
 
-        <Button type="submit" variant="danger" className="mt-3">
-          Register
-        </Button>
-
-        {isLoading && <Loader />}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Button type="submit" variant="danger" className="mt-3">
+            Register
+          </Button>
+        )}
       </Form>
 
       <Row className="py-3">
