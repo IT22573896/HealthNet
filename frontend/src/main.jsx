@@ -16,9 +16,7 @@ import LoginScreen from "./screens/LoginScreen.jsx";
 import RegisterScreen from "./screens/RegisterScreen.jsx";
 import ProfileScreen from "./screens/ProfileScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
-import DoctorPrivateRoute from "./components/DoctorPrivateRoute.jsx";
 import ManagementPrivateRoute from "./components/ManagementPrivateRoute.jsx";
-import DoctorDashboard from "./screens/Doctor/DoctorDashboard.jsx";
 import AdminDashboard from "./screens/Management/AdminDashboard.jsx";
 import Patients from "./screens/Management/Patients.jsx";
 import Reports from "./screens/Management/Reports.jsx";
@@ -27,6 +25,9 @@ import Appointments from "./screens/Management/Appointments.jsx";
 import Doctors from "./screens/Management/Doctors.jsx";
 import Payments from "./screens/Management/Payments.jsx";
 import Emergency from "./screens/Management/Emergency.jsx";
+import MedicalRecordScreen from "./screens/MedicalRecordScreen.jsx";
+import AppointmentScreen from "./screens/AppointmentScreen.jsx";
+import EmergencyRequestScreen from "./screens/EmergencyRequestScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,23 +37,24 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
-      </Route>
-
-      {/* Doctor Private Routes */}
-      <Route path="" element={<DoctorPrivateRoute />}>
-        <Route path="/docdashboard" element={<DoctorDashboard />} />
+        <Route path="/appointments" element={<AppointmentScreen />} />
+        <Route path="/medicalrecord" element={<MedicalRecordScreen />} />
+        <Route path="/emergencyrequest" element={<EmergencyRequestScreen />} />
       </Route>
 
       {/* Management Private Routes */}
       <Route path="" element={<ManagementPrivateRoute />}>
         <Route path="/managementdashboard" element={<AdminDashboard />} />
-        <Route path="/overview" element={<Overview />} />
-        <Route path="/patients" element={<Patients />} />
-        <Route path="/appointments" element={<Appointments />} />
-        <Route path="/doctors" element={<Doctors />} />
-        <Route path="/payments" element={<Payments />} />
-        <Route path="/emergency" element={<Emergency />} />
-        <Route path="/reports" element={<Reports />} />
+        <Route path="/managementdashboard/overview" element={<Overview />} />
+        <Route path="/managementdashboard/patients" element={<Patients />} />
+        <Route
+          path="/managementdashboard/appointments"
+          element={<Appointments />}
+        />
+        <Route path="/managementdashboard/doctors" element={<Doctors />} />
+        <Route path="/managementdashboard/payments" element={<Payments />} />
+        <Route path="/managementdashboard/emergency" element={<Emergency />} />
+        <Route path="/managementdashboard/reports" element={<Reports />} />
       </Route>
     </Route>
   )

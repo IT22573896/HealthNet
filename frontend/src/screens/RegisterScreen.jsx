@@ -41,7 +41,7 @@ const RegisterScreen = () => {
           autoClose: 3000,
           hideProgressBar: false,
           style: {
-            backgroundColor: "#c4f9a9",
+            backgroundColor: "#a9dcf9",
             color: "black",
             fontSize: "18px",
             fontWeight: "bold",
@@ -52,22 +52,6 @@ const RegisterScreen = () => {
         // Display role-specific notification for patients
         if (role === "Patient") {
           toast.info("Please complete your Medical profile", {
-            position: "top-right",
-            autoClose: 7000,
-            hideProgressBar: false,
-            style: {
-              backgroundColor: "#ebc7cd",
-              color: "black",
-              fontSize: "16px",
-              fontWeight: "bold",
-              fontFamily: "monospace",
-            },
-          });
-        }
-
-        // Display role-specific notification for doctors
-        if (role === "Doctor") {
-          toast.info("Please complete your Doctor profile", {
             position: "top-right",
             autoClose: 7000,
             hideProgressBar: false,
@@ -181,16 +165,6 @@ const RegisterScreen = () => {
                   name="role"
                   value="Patient"
                   checked={role === "Patient"}
-                  onChange={(e) => setRole(e.target.value)}
-                  className="me-3"
-                />
-                <Form.Check
-                  type="radio"
-                  id="roleDoctor"
-                  label="Doctor"
-                  name="role"
-                  value="Doctor"
-                  checked={role === "Doctor"}
                   onChange={(e) => setRole(e.target.value)}
                   className="me-3"
                 />
