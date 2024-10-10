@@ -36,7 +36,7 @@ const LoginScreen = () => {
         hideProgressBar: false,
         style: {
           // Customize toast styles
-          backgroundColor: "#c4f9a9",
+          backgroundColor: "#a9dcf9",
           color: "black",
           fontSize: "18px",
           fontWeight: "bold",

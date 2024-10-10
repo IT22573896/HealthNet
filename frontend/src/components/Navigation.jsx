@@ -1,6 +1,7 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 import "../styles/Navigation.css";
+import { LinkContainer } from "react-router-bootstrap";
 
 const Navigation = () => {
   return (
@@ -9,7 +10,9 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <LinkContainer to="/">
+              <Nav.Link href="#home">Home</Nav.Link>
+            </LinkContainer>
             <Nav.Link href="#about">About</Nav.Link>
             <NavDropdown title="Services" id="services-dropdown">
               <NavDropdown.Item href="#services">Cardiology</NavDropdown.Item>
