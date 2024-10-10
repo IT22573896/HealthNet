@@ -28,7 +28,7 @@ const processPayment = asyncHandler(async (req, res) => {
     // Simulate card payment processing
     paymentStatus = "Paid";
   } else if (method === "cash") {
-    paymentStatus = "Pending Cash";
+    paymentStatus = "Pending";
   } else if (method === "insurance") {
     if (
       !insuranceDetails ||
@@ -38,7 +38,7 @@ const processPayment = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Insurance details are required for insurance claim");
     }
-    paymentStatus = "Pending Insurance";
+    paymentStatus = "Pending";
   } else {
     res.status(400);
     throw new Error("Invalid payment method");
@@ -81,4 +81,17 @@ const getPaymentDetails = asyncHandler(async (req, res) => {
   }
 });
 
-export { processPayment, getPaymentDetails };
+const getPaymentsByPatient = asyncHandler(async (req, res) => {
+  const patientId = req.params.patientId;
+
+  const payments = await Payment.find({ user: patientId });
+
+  if (payments) {
+    res.status(200).json(payments);
+  } else {
+    res.status(404);
+    throw new Error("No Payments for this patients");
+  }
+});
+
+export { processPayment, getPaymentDetails, getPaymentsByPatient };

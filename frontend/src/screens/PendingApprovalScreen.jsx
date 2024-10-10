@@ -12,7 +12,7 @@ const PendingApprovalScreen = () => {
         <Card className="mt-3">
           <Card.Body>
             <h5>Payment Method: {paymentDetails.method}</h5>
-            <p>Amount: ${paymentDetails.amount}</p>
+            <p>Amount: Rs.{paymentDetails.amount}</p>
             <p>
               Your payment is currently under review. Please wait for approval.
             </p>

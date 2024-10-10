@@ -25,12 +25,14 @@ import Appointments from "./screens/Management/Appointments.jsx";
 import Doctors from "./screens/Management/Doctors.jsx";
 import Payments from "./screens/Management/Payments.jsx";
 import Emergency from "./screens/Management/Emergency.jsx";
-import MedicalRecordScreen from "./screens/MedicalRecordScreen.jsx";
+import MedicalRecordScreen from "./screens/Patient/MedicalRecordScreen.jsx";
 import AppointmentScreen from "./screens/AppointmentScreen.jsx";
 import EmergencyRequestScreen from "./screens/EmergencyRequestScreen.jsx";
 import PaymentScreen from "./screens/PaymentScreen.jsx";
 import PaymentReceiptScreen from "./screens/PaymentReceiptScreen.jsx";
 import PendingApprovalScreen from "./screens/PendingApprovalScreen.jsx";
+import MyPaymentsScreen from "./screens/Patient/MyPaymentsScreen.jsx";
+import ReceiptScreen from "./screens/Patient/ReceiptScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,6 +48,8 @@ const router = createBrowserRouter(
         <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/paymentreceipt" element={<PaymentReceiptScreen />} />
         <Route path="/pendingapproval" element={<PendingApprovalScreen />} />
+        <Route path="/mypayments" element={<MyPaymentsScreen />} />
+        <Route path="/receipt" element={<ReceiptScreen />} />
       </Route>
 
       {/* Management Private Routes */}

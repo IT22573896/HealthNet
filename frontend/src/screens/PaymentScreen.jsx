@@ -30,13 +30,34 @@ const PaymentScreen = () => {
     }
   }, [navigate, userInfo]);
 
+  const insuranceProviders = [
+    "Sri Lanka Insurance",
+    "Janashakthi Insurance",
+    "Union Assurance",
+    "HNB General Insurance",
+    "Ceylinco Insurance",
+    "AIA Insurance",
+    "Lanka Orix Leasing Company",
+    "Sampath Insurance",
+    "AIA General Insurance",
+    "Fairfirst Insurance",
+  ];
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    // Merge expiryMonth and expiryYear into a single expiry date string
+    const expiryDate = `${cardDetails.expiryMonth}/${cardDetails.expiryYear}`;
+
     const paymentData = {
       method: paymentMethod,
-      amount: Number(amount), // Ensure amount is a number
-      ...(paymentMethod === "card" && { cardDetails }),
+      amount: Number(amount),
+      ...(paymentMethod === "card" && {
+        cardDetails: {
+          ...cardDetails,
+          expiry: expiryDate,
+        },
+      }),
       ...(paymentMethod === "insurance" && { insuranceDetails }),
     };
 
@@ -185,16 +206,36 @@ const PaymentScreen = () => {
             </Form.Group>
             <Form.Group className="my-2" controlId="expiry">
               <Form.Label>Expiry Date</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="MM/YY"
-                value={cardDetails.expiry}
-                onChange={(e) =>
-                  setCardDetails({ ...cardDetails, expiry: e.target.value })
-                }
-                required
-              ></Form.Control>
+              <div className="d-flex">
+                <Form.Control
+                  type="text"
+                  placeholder="MM"
+                  value={cardDetails.expiryMonth}
+                  onChange={(e) =>
+                    setCardDetails({
+                      ...cardDetails,
+                      expiryMonth: e.target.value,
+                    })
+                  }
+                  required
+                  style={{ width: "55px", marginRight: "10px" }}
+                />
+                <Form.Control
+                  type="text"
+                  placeholder="YY"
+                  value={cardDetails.expiryYear}
+                  onChange={(e) =>
+                    setCardDetails({
+                      ...cardDetails,
+                      expiryYear: e.target.value,
+                    })
+                  }
+                  required
+                  style={{ width: "55px" }}
+                />
+              </div>
             </Form.Group>
+
             <Form.Group className="my-2" controlId="cvc">
               <Form.Label>CVC</Form.Label>
               <Form.Control
@@ -205,6 +246,7 @@ const PaymentScreen = () => {
                   setCardDetails({ ...cardDetails, cvc: e.target.value })
                 }
                 required
+                style={{ width: "105px" }}
               ></Form.Control>
             </Form.Group>
           </>
@@ -229,10 +271,8 @@ const PaymentScreen = () => {
               ></Form.Control>
             </Form.Group>
             <Form.Group className="my-2" controlId="provider">
-              <Form.Label>Provider</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter provider"
+              <Form.Label>Insurance Provider</Form.Label>
+              <Form.Select
                 value={insuranceDetails.provider}
                 onChange={(e) =>
                   setInsuranceDetails({
@@ -241,7 +281,14 @@ const PaymentScreen = () => {
                   })
                 }
                 required
-              ></Form.Control>
+              >
+                <option value="">Select Provider</option>
+                {insuranceProviders.map((provider, index) => (
+                  <option key={index} value={provider}>
+                    {provider}
+                  </option>
+                ))}
+              </Form.Select>
             </Form.Group>
           </>
         )}

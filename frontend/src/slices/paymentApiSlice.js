@@ -14,9 +14,16 @@ export const paymentApiSlice = apiSlice.injectEndpoints({
     }),
 
     // Query for getting payment details
-    getPaymentDetails: builder.query({
+    getPaymentDetails: builder.mutation({
       query: (paymentId) => ({
         url: `${PAYMENTS_URL}/getpay/${paymentId}`,
+        method: "GET",
+      }),
+    }),
+
+    getPaymentsByPatient: builder.mutation({
+      query: (data) => ({
+        url: `${PAYMENTS_URL}/getpayment/${data}`,
         method: "GET",
       }),
     }),
@@ -24,5 +31,8 @@ export const paymentApiSlice = apiSlice.injectEndpoints({
 });
 
 // Exporting hooks for component usage
-export const { useProcessPaymentMutation, useGetPaymentDetailsQuery } =
-  paymentApiSlice;
+export const {
+  useProcessPaymentMutation,
+  useGetPaymentDetailsMutation,
+  useGetPaymentsByPatientMutation,
+} = paymentApiSlice;

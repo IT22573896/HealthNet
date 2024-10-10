@@ -19,7 +19,7 @@ const paymentSchema = mongoose.Schema(
     status: {
       type: String,
       required: true,
-      default: "Pending", // Default status
+      default: "Pending",
     },
     cardDetails: {
       cardNumber: { type: String },
