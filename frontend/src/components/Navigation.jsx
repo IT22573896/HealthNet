@@ -10,18 +10,45 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
+            {/* Home screen */}
             <LinkContainer to="/">
               <Nav.Link href="#home">Home</Nav.Link>
             </LinkContainer>
+
+            {/* About section */}
             <Nav.Link href="#about">About</Nav.Link>
+
+            {/* Main services */}
             <NavDropdown title="Services" id="services-dropdown">
-              <NavDropdown.Item href="#services">Cardiology</NavDropdown.Item>
-              <NavDropdown.Item href="#services">Pulmonology</NavDropdown.Item>
-              <NavDropdown.Item href="#services">Hematology</NavDropdown.Item>
-              <NavDropdown.Item href="#services">Orthopedics</NavDropdown.Item>
+              {/* Appointments */}
+              <LinkContainer to="/appointments">
+                <NavDropdown.Item href="#services">
+                  Appointments
+                </NavDropdown.Item>
+              </LinkContainer>
+
+              {/* Medical Reports */}
+              <LinkContainer to="/medicalrecord">
+                <NavDropdown.Item href="#services">
+                  Medical Reports
+                </NavDropdown.Item>
+              </LinkContainer>
+
+              {/* Emergency Requests */}
+              <LinkContainer to="/emergencyrequest">
+                <NavDropdown.Item href="#services">
+                  Emergency Request
+                </NavDropdown.Item>
+              </LinkContainer>
             </NavDropdown>
+
+            {/* Features */}
             <Nav.Link href="#features">Features</Nav.Link>
+
+            {/* Doctors screen */}
             <Nav.Link href="#doctors">Doctors</Nav.Link>
+
+            {/* Contact Section */}
             <Nav.Link href="#contact">Contact</Nav.Link>
           </Nav>
         </Navbar.Collapse>

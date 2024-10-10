@@ -25,6 +25,9 @@ import Appointments from "./screens/Management/Appointments.jsx";
 import Doctors from "./screens/Management/Doctors.jsx";
 import Payments from "./screens/Management/Payments.jsx";
 import Emergency from "./screens/Management/Emergency.jsx";
+import MedicalRecordScreen from "./screens/MedicalRecordScreen.jsx";
+import AppointmentScreen from "./screens/AppointmentScreen.jsx";
+import EmergencyRequestScreen from "./screens/EmergencyRequestScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +37,9 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/appointments" element={<AppointmentScreen />} />
+        <Route path="/medicalrecord" element={<MedicalRecordScreen />} />
+        <Route path="/emergencyrequest" element={<EmergencyRequestScreen />} />
       </Route>
 
       {/* Management Private Routes */}
