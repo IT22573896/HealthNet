@@ -26,7 +26,7 @@ const AdminDashboardSideNavbar = () => {
             <FaUser /> Patients
           </Nav.Link>
         </LinkContainer>
-        <LinkContainer to="/appointments">
+        <LinkContainer to="/getAllAppointmentsAdmin">
           <Nav.Link>
             <FaCalendarCheck /> Appointments
           </Nav.Link>
