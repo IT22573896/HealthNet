@@ -28,6 +28,8 @@ import Emergency from "./screens/Management/Emergency.jsx";
 import MedicalRecordScreen from "./screens/MedicalRecordScreen.jsx";
 import AppointmentScreen from "./screens/AppointmentScreen.jsx";
 import EmergencyRequestScreen from "./screens/EmergencyRequestScreen.jsx";
+import MapScreen from './screens/MapScreen.jsx'; 
+import Ambulances from './screens/Management/Ambulances.jsx'; 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +42,7 @@ const router = createBrowserRouter(
         <Route path="/appointments" element={<AppointmentScreen />} />
         <Route path="/medicalrecord" element={<MedicalRecordScreen />} />
         <Route path="/emergencyrequest" element={<EmergencyRequestScreen />} />
+        <Route path="/map" element={<MapScreen />} /> 
       </Route>
 
       {/* Management Private Routes */}
@@ -55,6 +58,7 @@ const router = createBrowserRouter(
         <Route path="/managementdashboard/payments" element={<Payments />} />
         <Route path="/managementdashboard/emergency" element={<Emergency />} />
         <Route path="/managementdashboard/reports" element={<Reports />} />
+        <Route path="/managementdashboard/ambulances" element={<Ambulances />} />
       </Route>
     </Route>
   )

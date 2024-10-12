@@ -1,13 +1,16 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-dotenv.config();
 import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 // Routes
 import userRoutes from "./routes/userRoutes.js";
+import emergencyRequestRoutes from "./routes/emergencyRequestRoutes.js"; // Import emergency request routes
+import ambulanceRoutes from './routes/ambulanceRoutes.js'; // Import ambulance routes
+
+dotenv.config();
 
 const port = process.env.PORT || 5000;
 
@@ -20,12 +23,16 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
+// Routes
 app.use("/api/users", userRoutes);
+app.use("/api/emergency-requests", emergencyRequestRoutes); // Use emergency request routes
+app.use('/api/ambulances', ambulanceRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running....");
 });
 
+// Error handling middleware
 app.use(notFound);
 app.use(errorHandler);
 
