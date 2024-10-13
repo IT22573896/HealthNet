@@ -68,7 +68,7 @@ const PaymentScreen = () => {
       if (paymentMethod === "cash" || paymentMethod === "insurance") {
         // Display a success toast indicating the payment is pending approval
         toast.success(
-          `Payment of $${amount} via ${paymentMethod} is successful. Please wait for approval.`,
+          `Payment of Rs.${amount} via ${paymentMethod} is successful. Please wait for approval.`,
           {
             position: "top-right",
             autoClose: 3000,
