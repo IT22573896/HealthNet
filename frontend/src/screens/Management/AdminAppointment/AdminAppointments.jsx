@@ -56,7 +56,7 @@ const AdminAppointments = () => {
           <div className="patient_list"> {/* Similar to patient_list class in Doctors.jsx */}
             <div className="d-flex justify-content-between align-items-center mb-4">
               {/* Left-side button */}
-              <Link to={"/addappointments"} className="btn btn-primary">Add Appointment</Link>
+              <Link to={"/getDeletedAppointments"} className="btn btn-primary">Add Appointment</Link>
 
               {/* Right-side search bar */}
               <InputGroup className="mb-3" style={{ width: '500px' }}> {/* Increased width to 500px */}

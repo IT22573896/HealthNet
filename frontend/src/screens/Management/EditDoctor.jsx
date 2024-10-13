@@ -100,7 +100,7 @@ const EditDoctor = () => {
                     <Form.Label>Hospital Name</Form.Label>
                     <Form.Control
                       type="text"
-                      name="dhospitalname"
+                      name="hospitalName"
                       value={doctor.hospitalName}
                       onChange={inputHandler}
                       required

@@ -4,7 +4,9 @@ import {
   createAppointment,
   getAllAppointments,
   updateAppointmentStatus,
-  getDoctorsBySpecialization,getDoctorByName,appointmentdelete,appointmentgetone,updateAppointment
+  getDoctorsBySpecialization,getDoctorByName,appointmentdelete,appointmentgetone,
+  updateAppointment,
+  getDeletedAppointments,getDeletedAppointmentsPatient
 } from '../controllers/appointmentController.js';
 
 const router = express.Router();
@@ -28,10 +30,18 @@ router.put('/updateAppointment/:id', updateAppointment); // Ensure this route is
 // Route to delete appointment status (for admin)
 router.put('/appointmentdelete/:id', appointmentdelete);
 
+router.get('/getDeletedAppointments', getDeletedAppointments);
+
+router.get('/getDeletedAppointmentsPatient', getDeletedAppointmentsPatient);
+
 // Route to get doctors by specialization
 router.get('/doctor/:specialization/:hospitalName', getDoctorsBySpecialization);
 
 // Fetch doctor by name (for date and time auto-fill)
 router.get('/doctor/:doctorname', getDoctorByName);
+
+
+
+
 
 export default router; 

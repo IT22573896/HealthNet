@@ -23,8 +23,8 @@ import AdminDashboard from "./screens/Management/AdminDashboard.jsx";
 import Patients from "./screens/Management/Patients.jsx";
 import Reports from "./screens/Management/Reports.jsx";
 import Overview from "./screens/Management/Overview.jsx";
-import Appointments from "./screens/Management/Appointments.jsx";
-//import Doctors from "./screens/Management/Doctors.jsx";
+
+
 import Payments from "./screens/Management/Payments.jsx";
 import Emergency from "./screens/Management/Emergency.jsx";
 import AddDoctor from "./screens/Management/AddDoctor.jsx";
@@ -34,6 +34,9 @@ import Appointment from "./screens/Patient/Appointment.jsx";
 import AllAppointments from "./screens/Patient/AllAppointments.jsx";
 import AdminAppointments from "./screens/Management/AdminAppointment/AdminAppointments.jsx";
 import EditAppointment from "./screens/Management/AdminAppointment/EditAppointment.jsx";
+import RecommendationDoctors from "./screens/Patient/RecommendationDoctors.jsx";
+import CompletedAppointmentAdmin from "./screens/Management/AdminAppointment/CompletedAppointmentAdmin.jsx";
+import CompleteAppointmentPatient from "./screens/Patient/CompleteAppointmentPatient.jsx";
 
 
 const router = createBrowserRouter(
@@ -46,6 +49,8 @@ const router = createBrowserRouter(
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/createAppointment" element={<Appointment />} />
         <Route path="/getAllAppointments" element={<AllAppointments />} />
+        <Route path="/recommendDoctors" element={<RecommendationDoctors/>} />
+        <Route path="/getDeletedAppointmentsPatient" element={<CompleteAppointmentPatient/>} />
         
       </Route>
 
@@ -59,7 +64,7 @@ const router = createBrowserRouter(
         <Route path="/managementdashboard" element={<AdminDashboard />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/patients" element={<Patients />} />
-       
+        
         <Route path="/doctors" element={<Doctor />} />
         <Route path="/adddoctors" element={<AddDoctor />} />
         <Route path="/editdoctors/:id" element={<EditDoctor/>} />
@@ -68,6 +73,7 @@ const router = createBrowserRouter(
 
         <Route path="/getAllAppointmentsAdmin" element={<AdminAppointments/>} />
         <Route path="/editappointment/:id" element={<EditAppointment/>} />
+        <Route path="/getDeletedAppointments" element={<CompletedAppointmentAdmin/>} />
 
         <Route path="/payments" element={<Payments />} />
         <Route path="/emergency" element={<Emergency />} />

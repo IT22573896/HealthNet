@@ -1,6 +1,7 @@
 // controllers/appointmentController.js
 import Appointment from '../models/appointmentModel.js';
 import Doctor from '../models/doctorModel.js';
+import DeletedAppointment from '../models/deletedAppointmentModel.js'; // Import the DeletedAppointment model
 
 // Create appointment
 export const createAppointment = async (req, res) => {
@@ -86,21 +87,59 @@ export const updateAppointment = async (req, res) => {
     }
   };
   
-export const appointmentdelete = async(req, res) => {
-    try{
-        const id = req.params.id;
-        const appointmentsExist = await Appointment.findById(id);
+// Fetch all deleted appointments
+export const getDeletedAppointments = async (req, res) => {
+  try {
+    const deletedAppointments = await DeletedAppointment.find();
+    res.status(200).json(deletedAppointments);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-        if(!appointmentsExist){
-            return res.status(401).json({msg: "Appointment data not found"});
-        }
+// Fetch all deleted appointments
+export const getDeletedAppointmentsPatient = async (req, res) => {
+  try {
+    const deletedAppointments = await DeletedAppointment.find();
+    res.status(200).json(deletedAppointments);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-       await Appointment.findByIdAndDelete(id);
-        res.status(200).json({msg:"Doctor deleted successfully"});
-    }catch(error){
-        res.status(500).json({error: error});
+
+// Delete an appointment and move it to DeletedAppointment
+export const appointmentdelete = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const appointmentExist = await Appointment.findById(id);
+
+    if (!appointmentExist) {
+      return res.status(404).json({ msg: "Appointment not found" });
     }
-}
+
+    // Create a new entry in the DeletedAppointment collection
+    const deletedAppointment = new DeletedAppointment({
+      name: appointmentExist.name,
+      hospitalName: appointmentExist.hospitalName,
+      doctorName: appointmentExist.doctorName,
+      date: appointmentExist.date,
+      starttime: appointmentExist.starttime,
+      status: appointmentExist.status,
+    });
+    await deletedAppointment.save(); // Save the deleted appointment data
+
+    // Delete the original appointment from the Appointment collection
+    await Appointment.findByIdAndDelete(id);
+
+    res.status(200).json({ msg: "Appointment moved to deleted appointments successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 // Get doctors by specialization
 export const getDoctorsBySpecialization = async (req, res) => {
   const { specialization } = req.params;
@@ -126,3 +165,5 @@ export const getDoctorByName = async (req, res) => {
     }
   };
   
+
+
