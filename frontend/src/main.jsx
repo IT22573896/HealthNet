@@ -34,6 +34,7 @@ import PendingApprovalScreen from "./screens/PendingApprovalScreen.jsx";
 import MyPaymentsScreen from "./screens/Patient/MyPaymentsScreen.jsx";
 import ReceiptScreen from "./screens/Patient/ReceiptScreen.jsx";
 import UpdatePatient from "./screens/Management/Patients/updatePatient.jsx";
+import UpdatePayment from "./screens/Management/payment/UpdatePayment.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -70,6 +71,10 @@ const router = createBrowserRouter(
         />
         <Route path="/managementdashboard/doctors" element={<Doctors />} />
         <Route path="/managementdashboard/payments" element={<Payments />} />
+        <Route
+          path="/managementdashboard/payments/updatepayments/:id"
+          element={<UpdatePayment />}
+        />
         <Route path="/managementdashboard/emergency" element={<Emergency />} />
         <Route path="/managementdashboard/reports" element={<Reports />} />
       </Route>
