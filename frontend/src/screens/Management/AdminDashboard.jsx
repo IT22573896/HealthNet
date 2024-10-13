@@ -8,10 +8,13 @@ const AdminDashboard = () => {
   return (
     <Container fluid className="AdminDashboard">
       <Row>
-        <Col md={3}>
-          <AdminDashboardSideNavbar /> {/* Add Side Navbar here */}
+        {/* Sidebar: Hidden on extra small and small screens, visible on medium and larger */}
+        <Col xs={12} md={3} className="d-none d-md-block">
+          <AdminDashboardSideNavbar />
         </Col>
-        <Col md={9}>
+
+        {/* Main Content: Takes full width on small screens */}
+        <Col xs={12} md={9}>
           <Outlet />
         </Col>
       </Row>

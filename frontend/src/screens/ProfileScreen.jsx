@@ -136,11 +136,13 @@ const ProfileScreen = () => {
           </Col>
         </Row>
 
-        <Button type="submit" variant="danger" className="mt-3">
-          Update
-        </Button>
-
-        {isLoading && <Loader />}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Button type="submit" variant="danger" className="mt-3">
+            Update
+          </Button>
+        )}
       </Form>
     </FormContainer>
   );

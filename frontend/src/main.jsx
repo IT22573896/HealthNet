@@ -25,10 +25,15 @@ import Appointments from "./screens/Management/Appointments.jsx";
 import Doctors from "./screens/Management/Doctors.jsx";
 import Payments from "./screens/Management/Payments.jsx";
 import Emergency from "./screens/Management/Emergency.jsx";
-import MedicalRecordScreen from "./screens/MedicalRecordScreen.jsx";
+import MedicalRecordScreen from "./screens/Patient/MedicalRecordScreen.jsx";
 import AppointmentScreen from "./screens/AppointmentScreen.jsx";
 import EmergencyRequestScreen from "./screens/EmergencyRequestScreen.jsx";
 import PaymentScreen from "./screens/PaymentScreen.jsx";
+import PaymentReceiptScreen from "./screens/PaymentReceiptScreen.jsx";
+import PendingApprovalScreen from "./screens/PendingApprovalScreen.jsx";
+import MyPaymentsScreen from "./screens/Patient/MyPaymentsScreen.jsx";
+import ReceiptScreen from "./screens/Patient/ReceiptScreen.jsx";
+import UpdatePatient from "./screens/Management/Patients/updatePatient.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,12 +41,18 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+
+      {/* Patient Private routes */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/appointments" element={<AppointmentScreen />} />
         <Route path="/medicalrecord" element={<MedicalRecordScreen />} />
         <Route path="/emergencyrequest" element={<EmergencyRequestScreen />} />
         <Route path="/payment" element={<PaymentScreen />} />
+        <Route path="/paymentreceipt" element={<PaymentReceiptScreen />} />
+        <Route path="/pendingapproval" element={<PendingApprovalScreen />} />
+        <Route path="/mypayments" element={<MyPaymentsScreen />} />
+        <Route path="/receipt/:paymentId" element={<ReceiptScreen />} />
       </Route>
 
       {/* Management Private Routes */}
@@ -49,6 +60,10 @@ const router = createBrowserRouter(
         <Route path="/managementdashboard" element={<AdminDashboard />} />
         <Route path="/managementdashboard/overview" element={<Overview />} />
         <Route path="/managementdashboard/patients" element={<Patients />} />
+        <Route
+          path="/managementdashboard/patients/updatepatients/:id"
+          element={<UpdatePatient />}
+        />
         <Route
           path="/managementdashboard/appointments"
           element={<Appointments />}

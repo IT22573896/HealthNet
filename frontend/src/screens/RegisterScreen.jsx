@@ -13,8 +13,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("patient"); // Default role
-
+  const [role, setRole] = useState("patient");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -183,11 +182,13 @@ const RegisterScreen = () => {
           </Col>
         </Row>
 
-        <Button type="submit" variant="danger" className="mt-3">
-          Register
-        </Button>
-
-        {isLoading && <Loader />}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Button type="submit" variant="danger" className="mt-3">
+            Register
+          </Button>
+        )}
       </Form>
 
       <Row className="py-3">
