@@ -3,12 +3,12 @@ import { useGetPaymentsByPatientMutation } from "../../slices/paymentApiSlice";
 import { useEffect } from "react";
 import { Table, Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { FaEye } from "react-icons/fa"; // Importing an icon from react-icons
 
 import "../../styles/paymentReceipt.css";
 
 const MyPaymentsScreen = () => {
   const { userInfo } = useSelector((state) => state.auth);
-
   const patientId = userInfo._id;
 
   const [getPaymentsByPatientId, { data: payments = [] }] =
@@ -20,23 +20,20 @@ const MyPaymentsScreen = () => {
 
   const navigate = useNavigate();
 
-  // Navigate to the receipt page
   const handleViewReceipt = (paymentId) => {
     navigate(`/receipt/${paymentId}`);
   };
 
-  // Helper function to format date and time separately from the timestamp
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
-    return date.toLocaleDateString(); // Returns the date part
+    return date.toLocaleDateString(); 
   };
 
   const formatTime = (timestamp) => {
     const date = new Date(timestamp);
-    return date.toLocaleTimeString(); // Returns the time part
+    return date.toLocaleTimeString(); 
   };
 
-  // Helper function to determine status color
   const getStatusStyle = (status) => {
     if (status.toLowerCase() === "pending") {
       return { color: "red", fontWeight: "bold" };
@@ -48,18 +45,18 @@ const MyPaymentsScreen = () => {
   };
 
   return (
-    <Container>
-      <Row className="justify-content-center my-4">
-        <Col md={8}>
-          <Card className="shadow">
-            <Card.Header as="h5" className="bg-primary text-white">
+    <Container className="my-5">
+      <Row className="justify-content-center">
+        <Col md={10}>
+          <Card className="shadow-sm border-light">
+            <Card.Header as="h5" className="bg-primary text-white text-center">
               My Payments
             </Card.Header>
             <Card.Body>
-              <Table striped bordered hover responsive>
+              <Table striped bordered hover responsive className="table-modern">
                 <thead>
                   <tr>
-                    <th>Amount(LKR)</th>
+                    <th>Amount (LKR)</th>
                     <th>Method</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -80,9 +77,11 @@ const MyPaymentsScreen = () => {
                       <td>
                         <Button
                           className="receiptBTN"
-                          variant="primary"
+                          variant="outline-primary"
                           onClick={() => handleViewReceipt(payment._id)}
+                          disabled={payment.status.toLowerCase() === "pending"}
                         >
+                          <FaEye className="me-1" /> {/* Adding icon */}
                           View Receipt
                         </Button>
                       </td>

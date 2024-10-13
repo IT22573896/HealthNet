@@ -138,10 +138,99 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
+
+// Admin side
+const addNewUser = asyncHandler(async (req, res) => {
+  try {
+    const userData = new User(req.body);
+
+    if (!userData) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const savedData = await userData.save();
+    res.status(200).json({ msg: "User Added Successfully", data: savedData });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+const getAllUsers = asyncHandler(async (req, res) => {
+  try {
+    const userData = await User.find();
+
+    if (!userData) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    res.status(200).json(userData);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+const getOneUserById = asyncHandler(async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const userExist = await User.findById(id);
+
+    if (!userExist) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    res.status(200).json(userExist);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+const updateUserDetails = asyncHandler(async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const userExist = await User.findById(id);
+
+    if (!userExist) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const updateData = await User.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    res.status(200).json({ msg: "User Updated Successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+const deleteUserDetails = asyncHandler(async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const userExist = await User.findById(id);
+
+    if (!userExist) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    await User.findByIdAndDelete(id);
+    res.status(200).json({ msg: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
 export {
   authUser,
   registerUser,
   logoutUser,
   getUserProfile,
   updateUserProfile,
+  addNewUser,
+  getAllUsers,
+  getOneUserById,
+  updateUserDetails,
+  deleteUserDetails,
 };

@@ -13,8 +13,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("patient"); // Default role
-
+  const [role, setRole] = useState("patient");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

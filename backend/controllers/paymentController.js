@@ -74,7 +74,7 @@ const getPaymentDetails = asyncHandler(async (req, res) => {
   const payment = await Payment.findById(req.params.id);
 
   if (payment) {
-    res.json(payment);
+    res.status(200).json(payment);
   } else {
     res.status(404);
     throw new Error("Payment not found");

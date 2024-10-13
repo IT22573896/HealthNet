@@ -1,6 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
 import AdminDashboardSideNavbar from "../../components/AdminDashboardSideNavbar";
-
 import "../../styles/Payments.css";
 
 const Payments = () => {
@@ -11,7 +10,7 @@ const Payments = () => {
           <AdminDashboardSideNavbar /> {/* Add Side Navbar here */}
         </Col>
         <Col md={9}>
-          <div className="patient_list">Payments</div>
+          <div className="patient_list"></div>
         </Col>
       </Row>
     </Container>
