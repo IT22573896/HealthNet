@@ -12,9 +12,14 @@ import appointmentRoutes from "./routes/appointmentRoutes.js";
 import emergencyRequestRoutes from "./routes/emergencyRequestRoutes.js"; // Import emergency request routes
 import ambulanceRoutes from './routes/ambulanceRoutes.js'; // Import ambulance routes
 import paymentRoutes from "./routes/paymentRoutes.js";
+
+import RecordRoutes from "./routes/RecordRoutes.js";
+
+
 dotenv.config();
 
 const port = process.env.PORT || 5000;
+
 
 connectDB();
 
@@ -32,6 +37,9 @@ app.use("/api/appointments", appointmentRoutes);
 app.use("/api/emergency-requests", emergencyRequestRoutes); // Use emergency request routes
 app.use('/api/ambulances', ambulanceRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api", RecordRoutes);
+
+
 
 app.get("/", (req, res) => {
   res.send("API is running....");
