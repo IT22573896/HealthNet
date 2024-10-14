@@ -21,13 +21,31 @@ import AdminDashboard from "./screens/Management/AdminDashboard.jsx";
 import Patients from "./screens/Management/Patients.jsx";
 import Reports from "./screens/Management/Reports.jsx";
 import Overview from "./screens/Management/Overview.jsx";
-import Appointments from "./screens/Management/Appointments.jsx";
-import Doctors from "./screens/Management/Doctors.jsx";
+
+
 import Payments from "./screens/Management/Payments.jsx";
 import Emergency from "./screens/Management/Emergency.jsx";
+import AddDoctor from "./screens/Management/AddDoctor.jsx";
+import Doctor from "./screens/Management/Doctor.jsx";
+import EditDoctor from "./screens/Management/EditDoctor.jsx";
+import Appointment from "./screens/Patient/Appointment.jsx";
+import AllAppointments from "./screens/Patient/AllAppointments.jsx";
+import AdminAppointments from "./screens/Management/AdminAppointment/AdminAppointments.jsx";
+import EditAppointment from "./screens/Management/AdminAppointment/EditAppointment.jsx";
+import RecommendationDoctors from "./screens/Patient/RecommendationDoctors.jsx";
+import CompletedAppointmentAdmin from "./screens/Management/AdminAppointment/CompletedAppointmentAdmin.jsx";
+import CompleteAppointmentPatient from "./screens/Patient/CompleteAppointmentPatient.jsx";
+
+
 import MedicalRecordScreen from "./screens/Patient/MedicalRecordScreen.jsx";
 import AppointmentScreen from "./screens/AppointmentScreen.jsx";
 import EmergencyRequestScreen from "./screens/EmergencyRequestScreen.jsx";
+import MapScreen from './screens/MapScreen.jsx'; 
+import Ambulances from './screens/Management/Ambulances.jsx'; 
+import AddAmbulanceForm from "./screens/Management/AddAmbulanceForm";
+import UpdateAmbulanceForm from "./screens/Management/UpdateAmbulanceForm.jsx";
+import Assign from "./screens/Management/Assign.jsx"; 
+import EmergencyReport from "./screens/Management/EmergencyReport.jsx"; 
 import PaymentScreen from "./screens/PaymentScreen.jsx";
 import PaymentReceiptScreen from "./screens/PaymentReceiptScreen.jsx";
 import PendingApprovalScreen from "./screens/PendingApprovalScreen.jsx";
@@ -37,7 +55,8 @@ import Scan from "./screens/Management/Medical_Record/Scan.jsx";
 import RecordForm from "./screens/Management/Medical_Record/Recordform.jsx";
 import Recordshow from "./screens/Management/Medical_Record/Recordshow.jsx";
 import Editrecord from "./screens/Management/Medical_Record/Editrecord.jsx";
-
+import UpdatePatient from "./screens/Management/Patients/updatePatient.jsx";
+import UpdatePayment from "./screens/Management/payment/UpdatePayment.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,36 +64,79 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+
+      {/* Patient Private routes */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/createAppointment" element={<Appointment />} />
+        <Route path="/getAllAppointments" element={<AllAppointments />} />
+        <Route path="/recommendDoctors" element={<RecommendationDoctors/>} />
+        <Route path="/getDeletedAppointmentsPatient" element={<CompleteAppointmentPatient/>} />
+        
+      </Route>
+
+      {/* Doctor Private Routes */}
+      <Route path="" element={<DoctorPrivateRoute />}>
+        <Route path="/docdashboard" element={<DoctorDashboard />} />
         <Route path="/appointments" element={<AppointmentScreen />} />
         <Route path="/medicalrecord" element={<MedicalRecordScreen />} />
         <Route path="/emergencyrequest" element={<EmergencyRequestScreen />} />
+        <Route path="/map" element={<MapScreen />} /> 
         <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/paymentreceipt" element={<PaymentReceiptScreen />} />
         <Route path="/pendingapproval" element={<PendingApprovalScreen />} />
         <Route path="/mypayments" element={<MyPaymentsScreen />} />
-        <Route path="/receipt" element={<ReceiptScreen />} />
+        <Route path="/receipt/:paymentId" element={<ReceiptScreen />} />
       </Route>
 
       {/* Management Private Routes */}
       <Route path="" element={<ManagementPrivateRoute />}>
         <Route path="/managementdashboard" element={<AdminDashboard />} />
+        <Route path="/overview" element={<Overview />} />
+        <Route path="/patients" element={<Patients />} />
+        
+        <Route path="/doctors" element={<Doctor />} />
+        <Route path="/adddoctors" element={<AddDoctor />} />
+        <Route path="/editdoctors/:id" element={<EditDoctor/>} />
+
+        
+
+        <Route path="/getAllAppointmentsAdmin" element={<AdminAppointments/>} />
+        <Route path="/editappointment/:id" element={<EditAppointment/>} />
+        <Route path="/getDeletedAppointments" element={<CompletedAppointmentAdmin/>} />
+
+        <Route path="/payments" element={<Payments />} />
+        <Route path="/emergency" element={<Emergency />} />
+        <Route path="/reports" element={<Reports />} />
+
         <Route path="/managementdashboard/overview" element={<Overview />} />
         <Route path="/managementdashboard/patients" element={<Patients />} />
+        <Route
+          path="/managementdashboard/patients/updatepatients/:id"
+          element={<UpdatePatient />}
+        />
         <Route
           path="/managementdashboard/appointments"
           element={<Appointments />}
         />
         <Route path="/managementdashboard/doctors" element={<Doctors />} />
         <Route path="/managementdashboard/payments" element={<Payments />} />
+        <Route
+          path="/managementdashboard/payments/updatepayments/:id"
+          element={<UpdatePayment />}
+        />
         <Route path="/managementdashboard/emergency" element={<Emergency />} />
         <Route path="/managementdashboard/reports" element={<Reports />} />
         <Route path="/admin/reports/scan" element={<Scan />} /> 
         <Route path="/admin/reports/scan/record-form" element={<RecordForm />} />
         <Route path="/recordshow" element={<Recordshow />} />
         <Route path="/updaterecord/:id" element={<Editrecord />} />
-        
+
+        <Route path="/managementdashboard/ambulances" element={<Ambulances />} />
+        <Route path="/admin/add-ambulance" element={<AddAmbulanceForm />} />
+        <Route path="/admin/update-ambulance/:id" element={<UpdateAmbulanceForm />} />
+        <Route path="/admin/assign-ambulance/:requestId" element={<Assign />} />
+        <Route path="/admin/emergency-report" element={<EmergencyReport />} />
       </Route>
     </Route>
   )

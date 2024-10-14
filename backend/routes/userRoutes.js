@@ -5,7 +5,13 @@ import {
   logoutUser,
   getUserProfile,
   updateUserProfile,
+
   getPatients
+  addNewUser,
+  getAllUsers,
+  getOneUserById,
+  updateUserDetails,
+  deleteUserDetails,
 } from "../controllers/userController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -20,5 +26,11 @@ router
   .put(protect, updateUserProfile);
   router.get('/patients', protect, getPatients); // Protect ensures only authenticated users can access
 
+
+router.post("/addnewuser", addNewUser);
+router.get("/getallusers", getAllUsers);
+router.get("/getoneuser/:id", getOneUserById);
+router.put("/updateuser/:id", updateUserDetails);
+router.delete("/deleteuser/:id", deleteUserDetails);
 
 export default router;

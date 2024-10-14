@@ -84,20 +84,14 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Button type="submit" variant="danger" className="mt-3">
+            Login
+          </Button>
+        )}
       </Form>
-
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Button
-          disabled={isLoading}
-          type="submit"
-          variant="danger"
-          className="mt-3"
-        >
-          Login
-        </Button>
-      )}
 
       <Row className="py-3">
         <Col>
