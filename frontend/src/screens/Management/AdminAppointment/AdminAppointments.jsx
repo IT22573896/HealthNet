@@ -56,7 +56,7 @@ const AdminAppointments = () => {
           <div className="patient_list"> {/* Similar to patient_list class in Doctors.jsx */}
             <div className="d-flex justify-content-between align-items-center mb-4">
               {/* Left-side button */}
-              <Link to={"/getDeletedAppointments"} className="btn btn-primary">Add Appointment</Link>
+              <Link to={"/getDeletedAppointments"} className="btn btn-primary">Completed Appointment</Link>
 
               {/* Right-side search bar */}
               <InputGroup className="mb-3" style={{ width: '500px' }}> {/* Increased width to 500px */}
@@ -79,7 +79,7 @@ const AdminAppointments = () => {
                   <th>Doctor Name</th>
                   <th>Date</th>
                   <th>Start Time</th>
-                  <th>Status</th>
+                 
                   <th>Actions</th> {/* Added Actions column */}
                 </tr>
               </thead>
@@ -92,7 +92,7 @@ const AdminAppointments = () => {
                       <td>{appointment.doctorName}</td>
                       <td>{appointment.date.split('T')[0]}</td> {/* Formatting date to "yyyy-MM-dd" */}
                       <td>{appointment.starttime}</td>
-                      <td>{appointment.status || "Not approved"}</td> {/* Default to "Not approved" if status is undefined */}
+                     
                       <td>
                         <div className="d-flex justify-content-center"> {/* Use flexbox for inline buttons */}
                           <Link to={`/editappointment/${appointment._id}`} className="btn btn-warning btn-sm me-2">Update</Link> {/* Add margin-end for spacing */}

@@ -20,42 +20,24 @@ const Appointment = () => {
   const [doctors, setDoctors] = useState([]);
   const navigate = useNavigate();
 
-  // Specialization options
   const specializationOptions = [
-    "Cardiology",
-    "Dermatology",
-    "Neurology",
-    "Orthopedics",
-    "Pediatrics",
-    "Radiology",
-    "heart",
-    // Add more specializations as needed
+    "Cardiology", "Dermatology", "Neurology", "Orthopedics",
+    "Pediatrics", "Radiology", "heart"
   ];
 
-  // Hospital name options (example)
   const hospitalOptions = [
-    "City Hospital",
-    "General Hospital",
-    "Children's Hospital",
-    "Heart Care Center",
-    "Lanka Hospital,Colombo"
-    // Add more hospitals as needed
+    "City Hospital", "General Hospital", "Children's Hospital",
+    "Heart Care Center,Colombo", "Lanka Hospital,Colombo","Hemas Hospital,Colombo"
   ];
 
-  // Fetch doctors based on specialization and hospital name
   useEffect(() => {
     if (formData.specialization && formData.hospitalName) {
       axios.get(`/api/appointments/doctor/${formData.specialization}/${formData.hospitalName}`)
-        .then(response => {
-          setDoctors(response.data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
+        .then(response => setDoctors(response.data))
+        .catch(error => console.error(error));
     }
   }, [formData.specialization, formData.hospitalName]);
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -65,9 +47,9 @@ const Appointment = () => {
       if (selectedDoctor) {
         setFormData(prevData => ({
           ...prevData,
-          starttime: selectedDoctor.starttime, // Keep the 12-hour format (e.g., "6:30 p.m.")
-          date: selectedDoctor.date.split('T')[0], // Convert to "yyyy-MM-dd" format
-          fee: selectedDoctor.fee, // Set the doctor's fee
+          starttime: selectedDoctor.starttime, 
+          date: selectedDoctor.date.split('T')[0],
+          fee: selectedDoctor.fee,
         }));
       } else {
         setFormData(prevData => ({
@@ -80,28 +62,15 @@ const Appointment = () => {
     }
   };
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       console.log("Form Data:", formData);
       await axios.post("http://localhost:3000/api/appointments/createAppointment", formData);
       alert('Appointment Created Successfully');
-      
-      // Reset the form
       setFormData({
-        name: '',
-        age: '',
-        contactNumber: '',
-        specialization: '',
-        hospitalName: '',
-        doctorName: '',
-        fee: '',
-        date: '',
-        starttime: '',
+        name: '', age: '', contactNumber: '', specialization: '', hospitalName: '', doctorName: '', fee: '', date: '', starttime: '',
       });
-
-      // Navigate to the appointments page
       navigate("/getAllAppointments");
     } catch (error) {
       console.error("Error creating appointment:", error.response.data);
@@ -109,177 +78,229 @@ const Appointment = () => {
   };
 
   return (
-    <Container fluid className="AdminDashboard"> {/* Ensures the fluid layout */}
-      <Row className="justify-content-center mb-4">
-        <Col md={3}>
-          <Button variant="primary" onClick={() => navigate("/doctorRecommendation")}>
-            Doctor Recommendation
-          </Button>
+    <Container fluid className="AdminDashboard">
+      <Row className="justify-content-center mb-4"> {/* Center the buttons */}
+        <Col md="auto">
+        <Button 
+              onClick={() => navigate('/getAllAppointments')}
+              style={{
+                padding: '10px 15px', // Consistent padding
+                whiteSpace: 'nowrap', // Prevent wrapping to the next line
+                textAlign: 'center', // Center text
+                width: 'fit-content', // Button adjusts to the content size
+                backgroundColor: '#00008B', // Custom background color
+                color: '#fff', // White text color for contrast
+                border: 'none', // Remove border if needed
+                borderRadius: '5px', // Optional: Rounded corners
+              }}
+            >
+              My Appointments
+      </Button>
+         
         </Col>
-        <Col md={3}>
-          <Button variant="success" onClick={() => navigate("/completedAppointments")}>
-            Completed Appointments
-          </Button>
+
+        <Col md="auto">
+        <Button 
+          onClick={() => navigate('/recommendDoctors')}
+          style={{
+            padding: '10px 15px', // Consistent padding
+            whiteSpace: 'nowrap',  // Prevent wrapping
+            textAlign: 'center',
+            marginLeft: '10px',    // Space between buttons
+            width: 'fit-content',  // Fit content width
+            backgroundColor: '#0F52BA', // Light background color
+            color: 'white', // Set text color to white
+            border: 'none', // Remove border
+          }}
+        >
+          Doctor Recommendation
+      </Button>
+
         </Col>
-        <Col md={3}>
-          <Button variant="secondary" onClick={() => navigate("/getAllAppointments")}>
-            All Appointments
-          </Button>
+
+
+        <Col md="auto">
+        
+        <Button 
+          onClick={() => navigate('/getDeletedAppointmentsPatient')}
+          style={{
+            padding: '10px 15px', // Consistent padding
+            whiteSpace: 'nowrap',  // Prevent wrapping
+            textAlign: 'center',
+            marginLeft: '10px',    // Space between buttons
+            width: 'fit-content',  // Fit content width
+            backgroundColor: '#0096FF', // #6495EDLight background color
+            color: 'white', // Set text color to white
+            border: 'none', // Remove border
+          }}
+        >
+         Completed Appointments
+      </Button>
         </Col>
       </Row>
 
       <Row className="justify-content-center">
-        <Col md={6}>
-          <h1 className="mb-4 text-center">Create Appointment</h1>
-          <Form onSubmit={handleSubmit}>
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3" controlId="name">
-                  <Form.Label>Patient Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3" controlId="age">
-                  <Form.Label>Age</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="age"
-                    value={formData.age}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+        <Col md={6} lg={5}> {/* Reduced form size */}
+          <div 
+            className="form-container p-4" 
+            style={{ backgroundColor: '#e6f7ff', borderRadius: '8px' }} // Light blue background
+          >
+            <h1 className="mb-2 text-center" style={{ fontSize: '30px' }}>Book An Appointment</h1>
 
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3" controlId="contactNumber">
-                  <Form.Label>Contact Number</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="contactNumber"
-                    value={formData.contactNumber}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3" controlId="specialization">
-                  <Form.Label>Specialization</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="specialization"
-                    value={formData.specialization}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="">Select Specialization</option>
-                    {specializationOptions.map((spec, index) => (
-                      <option key={index} value={spec}>
-                        {spec}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
-              </Col>
-            </Row>
+            <Form onSubmit={handleSubmit}>
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>Patient Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group className="mb-3" controlId="age">
+                    <Form.Label>Age</Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="age"
+                      value={formData.age}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-            <Row>
-              <Col md={6}>
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3" controlId="contactNumber">
+                    <Form.Label>Contact Number</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="contactNumber"
+                      value={formData.contactNumber}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
                 <Form.Group className="mb-3" controlId="hospitalName">
-                  <Form.Label>Hospital Name</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="hospitalName"
-                    value={formData.hospitalName}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="">Select Hospital</option>
-                    {hospitalOptions.map((hospital, index) => (
-                      <option key={index} value={hospital}>
-                        {hospital}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3" controlId="doctorName">
-                  <Form.Label>Doctor</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="doctorName"
-                    value={formData.doctorName}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="">Select Doctor</option>
-                    {doctors.map((doctor) => (
-                      <option key={doctor._id} value={doctor.doctorname}>
-                        {doctor.doctorname}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
-              </Col>
-            </Row>
+                    <Form.Label>Hospital Name</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="hospitalName"
+                      value={formData.hospitalName}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Select Hospital</option>
+                      {hospitalOptions.map((hospital, index) => (
+                        <option key={index} value={hospital}>
+                          {hospital}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+              </Row>
 
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3" controlId="fee">
-                  <Form.Label>Doctor's Fee</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="fee"
-                    value={formData.fee}
-                    readOnly
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3" controlId="date">
-                  <Form.Label>Date</Form.Label>
-                  <Form.Control
-                    type="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+              <Row>
+                <Col md={6}>
 
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3" controlId="starttime">
-                  <Form.Label>Start Time</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="starttime"
-                    placeholder="e.g., 6:30 p.m."
-                    value={formData.starttime}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+                <Form.Group className="mb-3" controlId="specialization">
+                    <Form.Label>Specialization</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="specialization"
+                      value={formData.specialization}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Select Specialization</option>
+                      {specializationOptions.map((spec, index) => (
+                        <option key={index} value={spec}>
+                          {spec}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100">
-              Submit Appointment
-            </Button>
-          </Form>
+
+                  
+                </Col>
+                <Col md={6}>
+                  <Form.Group className="mb-3" controlId="doctorName">
+                    <Form.Label>Doctor</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="doctorName"
+                      value={formData.doctorName}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Select Doctor</option>
+                      {doctors.map((doctor) => (
+                        <option key={doctor._id} value={doctor.doctorname}>
+                          {doctor.doctorname}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3" controlId="fee">
+                    <Form.Label>Doctor's Fee</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="fee"
+                      value={formData.fee}
+                      readOnly
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group className="mb-3" controlId="date">
+                    <Form.Label>Date</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="date"
+                      value={formData.date}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3" controlId="starttime">
+                    <Form.Label>Start Time</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="starttime"
+                      placeholder="e.g., 6:30 p.m."
+                      value={formData.starttime}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Button variant="primary" type="submit" className="w-100">
+                Submit Appointment
+              </Button>
+            </Form>
+          </div>
         </Col>
       </Row>
     </Container>

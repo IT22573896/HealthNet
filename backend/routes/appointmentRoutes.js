@@ -3,7 +3,7 @@ import express from 'express';
 import {
   createAppointment,
   getAllAppointments,
-  updateAppointmentStatus,
+ 
   getDoctorsBySpecialization,getDoctorByName,appointmentdelete,appointmentgetone,
   updateAppointment,
   getDeletedAppointments,getDeletedAppointmentsPatient
@@ -22,8 +22,7 @@ router.get('/getAllAppointmentsAdmin', getAllAppointments);
 
 router.get("/appointmentgetone/:id",appointmentgetone);
 
-// Route to update appointment status (for admin)
-router.put('/updateAppointmentStatus/:id', updateAppointmentStatus);
+
 
 router.put('/updateAppointment/:id', updateAppointment); // Ensure this route is registered
 

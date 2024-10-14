@@ -30,10 +30,7 @@ const appointmentSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  approvalStatus: {
-    type: String,
-    default: 'Not Approved',
-  },
+ 
   fee: {
     type: Number,
     required: true,

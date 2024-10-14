@@ -20,20 +20,7 @@ function EditAppointment() {
         fetchData();
     }, []);
 
-    const handleApprovalChange = async (appointmentId, newStatus) => {
-        await axios.put(`http://localhost:3000/api/appointments/update/${appointmentId}`, {
-            status: newStatus
-        })
-        .then((response) => {
-            toast.success("Status updated successfully", { position: "top-right" });
-            setAppointments((prevAppointments) => prevAppointments.map((appointment) =>
-                appointment._id === appointmentId ? { ...appointment, status: newStatus } : appointment
-            ));
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    };
+   
 
     const filteredAppointments = appointments.filter((appointment) => {
         return (
@@ -73,7 +60,7 @@ function EditAppointment() {
                                     <th>Specialization</th>
                                     <th>Date</th>
                                     <th>Time</th>
-                                    <th>Status</th>
+                                   
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -86,15 +73,7 @@ function EditAppointment() {
                                         <td>{appointment.specialization}</td>
                                         <td>{new Date(appointment.date).toLocaleDateString()}</td>
                                         <td>{appointment.time}</td>
-                                        <td>
-                                            <select 
-                                                value={appointment.status} 
-                                                onChange={(e) => handleApprovalChange(appointment._id, e.target.value)}
-                                            >
-                                                <option value="Not Approved">Not Approved</option>
-                                                <option value="Approved">Approved</option>
-                                            </select>
-                                        </td>
+                                       
                                         <td>
                                             <Link to={'/viewappointment/' + appointment._id} className="btn btn-info btn-sm">View</Link>
                                         </td>

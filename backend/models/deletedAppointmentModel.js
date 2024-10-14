@@ -8,7 +8,7 @@ const deletedAppointmentSchema = new mongoose.Schema({
   doctorName: String,
   date: Date,
   starttime: String,
-  status: String,
+  
 });
 
 // Export the DeletedAppointment model

@@ -1,11 +1,14 @@
 // src/components/RecommendDoctor.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const RecommendationDoctors = () => {
   const [specializations, setSpecializations] = useState([]);
   const [selectedSpecialization, setSelectedSpecialization] = useState('');
   const [doctors, setDoctors] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch unique specializations from the server
@@ -35,16 +38,98 @@ const RecommendationDoctors = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-      <h1>Recommend a Doctor</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <label htmlFor="specialization">Select Specialization:</label>
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'flex-start', 
+      padding: '20px', 
+      backgroundColor: '#e6f7ff', // Light blue background color
+      minHeight: '100vh' // Ensures the background covers the full screen height
+    }}>
+      {/* Buttons for navigation */}
+      <div className="d-flex justify-content-start align-items-center mb-4" style={{ width: '100%', maxWidth: '800px' }}>
+      <Button 
+              onClick={() => navigate('/getAllAppointments')}
+              style={{
+                padding: '10px 15px', // Consistent padding
+                whiteSpace: 'nowrap', // Prevent wrapping to the next line
+                textAlign: 'center', // Center text
+                width: 'fit-content', // Button adjusts to the content size
+                backgroundColor: '#00008B', // Custom background color
+                color: '#fff', // White text color for contrast
+                border: 'none', // Remove border if needed
+                borderRadius: '5px', // Optional: Rounded corners
+              }}
+            >
+              My Appointments
+      </Button>
+        
+      <Button 
+          onClick={() => navigate('/createAppointment')}
+          style={{
+            padding: '10px 15px', // Consistent padding
+            whiteSpace: 'nowrap',  // Prevent wrapping
+            textAlign: 'center',
+            marginLeft: '10px',    // Space between buttons
+            width: 'fit-content',  // Fit content width
+            backgroundColor: '#0F52BA', // Light background color
+            color: 'white', // Set text color to white
+            border: 'none', // Remove border
+          }}
+        >
+          Book An Appointment
+      </Button>
+        
+      <Button 
+          onClick={() => navigate('/getDeletedAppointmentsPatient')}
+          style={{
+            padding: '10px 15px', // Consistent padding
+            whiteSpace: 'nowrap',  // Prevent wrapping
+            textAlign: 'center',
+            marginLeft: '10px',    // Space between buttons
+            width: 'fit-content',  // Fit content width
+            backgroundColor: '#0096FF', // #6495EDLight background color
+            color: 'white', // Set text color to white
+            border: 'none', // Remove border
+          }}
+        >
+         Completed Appointments
+      </Button>
+       
+
+       
+      </div>
+
+      {/* Align Recommend a Doctor to the left */}
+      <h2 style={{ textAlign: 'left', width: '100%' }}>Doctor Recomendation</h2>
+      
+      {/* Small description to guide users */}
+      <p style={{ textAlign: 'left', width: '100%', color: '#333' }}>
+        Please choose a specialization to find the best doctors in that field. You will receive a list of recommended doctors based on your selection.
+      </p>
+      
+      <form 
+        onSubmit={handleSubmit} 
+        style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'flex-start', 
+          width: '100%' 
+        }}
+      >
+        <label htmlFor="specialization" style={{ marginBottom: '5px' }}>Select Specialization:</label>
         <select
           id="specialization"
           value={selectedSpecialization}
           onChange={(e) => setSelectedSpecialization(e.target.value)}
           required
-          style={{ margin: '10px 0', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+          style={{ 
+            margin: '10px 0', 
+            padding: '10px', 
+            borderRadius: '5px', 
+            border: '1px solid #ccc',
+            width: '100%' // Ensures the dropdown spans the full width of the container
+          }}
         >
           <option value="">--Select--</option>
           {specializations.map((spec) => (
@@ -57,12 +142,13 @@ const RecommendationDoctors = () => {
           type="submit" 
           style={{
             padding: '10px 15px', 
-            backgroundColor: '#007bff', 
+            backgroundColor: '#5D3FD3', 
             color: '#fff', 
             border: 'none', 
             borderRadius: '5px', 
             cursor: 'pointer',
-            fontSize: '16px'
+            fontSize: '16px',
+            marginTop: '10px'
           }}
         >
           Submit
@@ -70,14 +156,14 @@ const RecommendationDoctors = () => {
       </form>
 
       {doctors.length > 0 && (
-        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+        <div style={{ marginTop: '20px', textAlign: 'left', width: '100%' }}>
           <h2>Recommended Doctors:</h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'flex-start' }}>
             {doctors.map((doctor) => (
               <div 
                 key={doctor._id} 
                 style={{
-                  backgroundColor: '#e6f7ff', // Light blue background color
+                  backgroundColor: '#0096FF', 
                   border: '1px solid #ccc', 
                   borderRadius: '8px', 
                   padding: '15px', 
@@ -86,10 +172,9 @@ const RecommendationDoctors = () => {
                   textAlign: 'left'
                 }}
               >
-                <h3 style={{ margin: '0 0 10px 0' }}>{doctor.doctorname}</h3>
-                <p style={{ margin: '5px 0' }}><strong>👨‍⚕️ Experience:</strong> {doctor.experience} years</p>
-                <p style={{ margin: '5px 0' }}><strong>👨‍⚕️ Hospital:</strong> {doctor.hospitalName}</p>
-                {/* Add more details as needed */}
+                <h3 style={{ margin: '0 0 10px 0' }}><strong>👨‍⚕️</strong>{doctor.doctorname}</h3>
+                <p style={{ margin: '5px 0' }}><strong>🔍 Experience:</strong> {doctor.experience} years</p>
+                <p style={{ margin: '5px 0' }}><strong>🔍 Hospital:</strong> {doctor.hospitalName}</p>
               </div>
             ))}
           </div>

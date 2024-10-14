@@ -37,7 +37,7 @@ const CompletedAppointments = () => {
                   <th>Doctor Name</th>
                   <th>Date</th>
                   <th>Start Time</th>
-                  <th>Status</th>
+                 
                 </tr>
               </thead>
               <tbody>
@@ -49,7 +49,7 @@ const CompletedAppointments = () => {
                       <td>{appointment.doctorName}</td>
                       <td>{appointment.date.split('T')[0]}</td> {/* Formatting date to "yyyy-MM-dd" */} 
                       <td>{appointment.starttime}</td>
-                      <td>{appointment.status || 'Not approved'}</td> {/* Default to 'Not approved' if status is missing */} 
+                     
                     </tr>
                   ))
                 ) : (

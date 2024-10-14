@@ -53,21 +53,7 @@ export const getAllAppointmentsAdmin = async (req, res) => {
 }
 
 
-// Update appointment status
-export const updateAppointmentStatus = async (req, res) => {
-  const { id } = req.params;
-  const { approvalStatus } = req.body;
-  try {
-    const updatedAppointment = await Appointment.findByIdAndUpdate(
-      id,
-      { approvalStatus },
-      { new: true }
-    );
-    res.status(200).json(updatedAppointment);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+
 
 export const updateAppointment = async (req, res) => {
     const { date, starttime } = req.body;

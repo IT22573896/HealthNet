@@ -14,7 +14,7 @@ const EditAppointment = () => {
     fee: '',
     date: '',
     starttime: '',
-    approvalStatus: 'Not Approved' // Default status
+    
   });
 
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const EditAppointment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/api/appointments/updateAppointmentStatus/${id}`, { approvalStatus: formData.approvalStatus });
+    
       // Optionally, you can also update the date and start time if needed
       await axios.put(`/api/appointments/updateAppointment/${id}`, {
         date: formData.date,
@@ -141,19 +141,7 @@ const EditAppointment = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="approvalStatus">
-              <Form.Label>Approval Status</Form.Label>
-              <Form.Control
-                as="select"
-                name="approvalStatus"
-                value={formData.approvalStatus}
-                onChange={handleChange} // Change handler for dropdown
-              >
-                <option value="Not Approved">Not Approved</option>
-                <option value="Approved">Approved</option>
-              </Form.Control>
-            </Form.Group>
-
+           
             <Button variant="primary" type="submit" className="w-100">
               Submit Appointment
             </Button>
