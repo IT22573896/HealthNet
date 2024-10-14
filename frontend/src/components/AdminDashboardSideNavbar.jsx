@@ -9,7 +9,7 @@ import {
   FaHeartbeat,
   FaFileMedical,
 } from "react-icons/fa";
-import "../styles/AdminDashboardSideNavbar.css"; // Import the CSS file
+import "../styles/AdminDashboardSideNavbar.css";
 
 const AdminDashboardSideNavbar = () => {
   return (
@@ -26,12 +26,12 @@ const AdminDashboardSideNavbar = () => {
             <FaUser /> Patients
           </Nav.Link>
         </LinkContainer>
-        <LinkContainer to="/managementdashboard/appointments">
+        <LinkContainer to="/getAllAppointmentsAdmin">
           <Nav.Link>
             <FaCalendarCheck /> Appointments
           </Nav.Link>
         </LinkContainer>
-        <LinkContainer to="/managementdashboard/doctors">
+        <LinkContainer to="/doctors">
           <Nav.Link>
             <FaUserMd /> Doctors
           </Nav.Link>

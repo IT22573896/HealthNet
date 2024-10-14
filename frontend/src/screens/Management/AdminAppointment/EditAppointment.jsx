@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Col, Container, Row, Form, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminDashboardSideNavbar from "../../../components/AdminDashboardSideNavbar";
 
 const EditAppointment = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    age: '',
-    contactNumber: '',
-    specialization: '',
-    hospitalName: '',
-    doctorName: '',
-    fee: '',
-    date: '',
-    starttime: '',
+    name: "",
+    age: "",
+    contactNumber: "",
+    specialization: "",
+    hospitalName: "",
+    doctorName: "",
+    fee: "",
+    date: "",
+    starttime: "",
   });
 
   const navigate = useNavigate();
@@ -24,7 +24,9 @@ const EditAppointment = () => {
   useEffect(() => {
     const fetchAppointment = async () => {
       try {
-        const response = await axios.get(`/api/appointments/appointmentgetone/${id}`);
+        const response = await axios.get(
+          `/api/appointments/appointmentgetone/${id}`
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching appointment:", error);
@@ -49,7 +51,7 @@ const EditAppointment = () => {
         date: formData.date,
         starttime: formData.starttime,
       });
-      alert('Appointment updated successfully');
+      alert("Appointment updated successfully");
       navigate("/getAllAppointmentsAdmin"); // Navigate to the appointments page
     } catch (error) {
       console.error("Error updating appointment:", error.response.data);

@@ -1,40 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Col, Container, Row, Form, Button } from "react-bootstrap"; // Bootstrap components
-import "../../styles/Doctors.css"; // Reusing the same Doctors.css for styling
 import { useNavigate } from "react-router-dom"; // For navigation
 
 const Appointment = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    age: '',
-    contactNumber: '',
-    specialization: '',
-    hospitalName: '',
-    doctorName: '',
-    fee: '', // New field for fee
-    date: '',
-    starttime: '', // Storing as string in 12-hour format (e.g., "6:30 p.m.")
+    name: "",
+    age: "",
+    contactNumber: "",
+    specialization: "",
+    hospitalName: "",
+    doctorName: "",
+    fee: "", // New field for fee
+    date: "",
+    starttime: "", // Storing as string in 12-hour format (e.g., "6:30 p.m.")
   });
 
   const [doctors, setDoctors] = useState([]);
   const navigate = useNavigate();
 
   const specializationOptions = [
-    "Cardiology", "Dermatology", "Neurology", "Orthopedics",
-    "Pediatrics", "Radiology", "heart"
+    "Cardiology",
+    "Dermatology",
+    "Neurology",
+    "Orthopedics",
+    "Pediatrics",
+    "Radiology",
+    "heart",
   ];
 
   const hospitalOptions = [
-    "City Hospital", "General Hospital,Colombo", "Children's Hospital",
-    "Heart Care Center,Colombo", "Lanka Hospital,Colombo","Hemas Hospital,Colombo"
+    "City Hospital",
+    "General Hospital,Colombo",
+    "Children's Hospital",
+    "Heart Care Center,Colombo",
+    "Lanka Hospital,Colombo",
+    "Hemas Hospital,Colombo",
   ];
 
   useEffect(() => {
     if (formData.specialization && formData.hospitalName) {
-      axios.get(`/api/appointments/doctor/${formData.specialization}/${formData.hospitalName}`)
-        .then(response => setDoctors(response.data))
-        .catch(error => console.error(error));
+      axios
+        .get(
+          `/api/appointments/doctor/${formData.specialization}/${formData.hospitalName}`
+        )
+        .then((response) => setDoctors(response.data))
+        .catch((error) => console.error(error));
     }
   }, [formData.specialization, formData.hospitalName]);
 
@@ -43,20 +54,22 @@ const Appointment = () => {
     setFormData({ ...formData, [name]: value });
 
     if (name === "doctorName") {
-      const selectedDoctor = doctors.find(doctor => doctor.doctorname === value);
+      const selectedDoctor = doctors.find(
+        (doctor) => doctor.doctorname === value
+      );
       if (selectedDoctor) {
-        setFormData(prevData => ({
+        setFormData((prevData) => ({
           ...prevData,
-          starttime: selectedDoctor.starttime, 
-          date: selectedDoctor.date.split('T')[0],
+          starttime: selectedDoctor.starttime,
+          date: selectedDoctor.date.split("T")[0],
           fee: selectedDoctor.fee,
         }));
       } else {
-        setFormData(prevData => ({
+        setFormData((prevData) => ({
           ...prevData,
-          starttime: '',
-          date: '',
-          fee: '',
+          starttime: "",
+          date: "",
+          fee: "",
         }));
       }
     }
@@ -66,10 +79,21 @@ const Appointment = () => {
     e.preventDefault();
     try {
       console.log("Form Data:", formData);
-      await axios.post("http://localhost:3000/api/appointments/createAppointment", formData);
-      alert('Appointment Created Successfully');
+      await axios.post(
+        "http://localhost:3000/api/appointments/createAppointment",
+        formData
+      );
+      alert("Appointment Created Successfully");
       setFormData({
-        name: '', age: '', contactNumber: '', specialization: '', hospitalName: '', doctorName: '', fee: '', date: '', starttime: '',
+        name: "",
+        age: "",
+        contactNumber: "",
+        specialization: "",
+        hospitalName: "",
+        doctorName: "",
+        fee: "",
+        date: "",
+        starttime: "",
       });
       navigate("/getAllAppointments");
     } catch (error) {
@@ -79,73 +103,73 @@ const Appointment = () => {
 
   return (
     <Container fluid className="AdminDashboard">
-      <Row className="justify-content-center mb-4"> {/* Center the buttons */}
+      <Row className="justify-content-center mb-4">
+        {" "}
+        {/* Center the buttons */}
         <Col md="auto">
-        <Button 
-              onClick={() => navigate('/getAllAppointments')}
-              style={{
-                padding: '10px 15px', // Consistent padding
-                whiteSpace: 'nowrap', // Prevent wrapping to the next line
-                textAlign: 'center', // Center text
-                width: 'fit-content', // Button adjusts to the content size
-                backgroundColor: '#00008B', // Custom background color
-                color: '#fff', // White text color for contrast
-                border: 'none', // Remove border if needed
-                borderRadius: '5px', // Optional: Rounded corners
-              }}
-            >
-              My Appointments
-      </Button>
-         
+          <Button
+            onClick={() => navigate("/getAllAppointments")}
+            // style={{
+            //   padding: '10px 15px', // Consistent padding
+            //   whiteSpace: 'nowrap', // Prevent wrapping to the next line
+            //   textAlign: 'center', // Center text
+            //   width: 'fit-content', // Button adjusts to the content size
+            //   backgroundColor: '#00008B', // Custom background color
+            //   color: '#fff', // White text color for contrast
+            //   border: 'none', // Remove border if needed
+            //   borderRadius: '5px', // Optional: Rounded corners
+            // }}
+          >
+            My Appointments
+          </Button>
         </Col>
-
         <Col md="auto">
-        <Button 
-          onClick={() => navigate('/recommendDoctors')}
-          style={{
-            padding: '10px 15px', // Consistent padding
-            whiteSpace: 'nowrap',  // Prevent wrapping
-            textAlign: 'center',
-            marginLeft: '10px',    // Space between buttons
-            width: 'fit-content',  // Fit content width
-            backgroundColor: '#0F52BA', // Light background color
-            color: 'white', // Set text color to white
-            border: 'none', // Remove border
-          }}
-        >
-          Doctor Recommendation
-      </Button>
-
+          <Button
+            onClick={() => navigate("/recommendDoctors")}
+            style={{
+              padding: "10px 15px", // Consistent padding
+              whiteSpace: "nowrap", // Prevent wrapping
+              textAlign: "center",
+              marginLeft: "10px", // Space between buttons
+              width: "fit-content", // Fit content width
+              backgroundColor: "#0F52BA", // Light background color
+              color: "white", // Set text color to white
+              border: "none", // Remove border
+            }}
+          >
+            Doctor Recommendation
+          </Button>
         </Col>
-
-
         <Col md="auto">
-        
-        <Button 
-          onClick={() => navigate('/getDeletedAppointmentsPatient')}
-          style={{
-            padding: '10px 15px', // Consistent padding
-            whiteSpace: 'nowrap',  // Prevent wrapping
-            textAlign: 'center',
-            marginLeft: '10px',    // Space between buttons
-            width: 'fit-content',  // Fit content width
-            backgroundColor: '#0096FF', // #6495EDLight background color
-            color: 'white', // Set text color to white
-            border: 'none', // Remove border
-          }}
-        >
-         Completed Appointments
-      </Button>
+          <Button
+            onClick={() => navigate("/getDeletedAppointmentsPatient")}
+            // style={{
+            //   padding: "10px 15px", // Consistent padding
+            //   whiteSpace: "nowrap", // Prevent wrapping
+            //   textAlign: "center",
+            //   marginLeft: "10px", // Space between buttons
+            //   width: "fit-content", // Fit content width
+            //   backgroundColor: "#0096FF", // #6495EDLight background color
+            //   color: "white", // Set text color to white
+            //   border: "none", // Remove border
+            // }}
+          >
+            Completed Appointments
+          </Button>
         </Col>
       </Row>
 
       <Row className="justify-content-center">
-        <Col md={6} lg={5}> {/* Reduced form size */}
-          <div 
-            className="form-container p-4" 
-            style={{ backgroundColor: '#e6f7ff', borderRadius: '8px' }} // Light blue background
+        <Col md={6} lg={5}>
+          {" "}
+          {/* Reduced form size */}
+          <div
+            className="form-container p-4"
+            // style={{ backgroundColor: "#e6f7ff", borderRadius: "8px" }} // Light blue background
           >
-            <h1 className="mb-2 text-center" style={{ fontSize: '30px' }}>Book An Appointment</h1>
+            <h1 className="mb-2 text-center" style={{ fontSize: "30px" }}>
+              Book An Appointment
+            </h1>
 
             <Form onSubmit={handleSubmit}>
               <Row>
@@ -189,7 +213,7 @@ const Appointment = () => {
                   </Form.Group>
                 </Col>
                 <Col md={6}>
-                <Form.Group className="mb-3" controlId="hospitalName">
+                  <Form.Group className="mb-3" controlId="hospitalName">
                     <Form.Label>Hospital Name</Form.Label>
                     <Form.Control
                       as="select"
@@ -211,8 +235,7 @@ const Appointment = () => {
 
               <Row>
                 <Col md={6}>
-
-                <Form.Group className="mb-3" controlId="specialization">
+                  <Form.Group className="mb-3" controlId="specialization">
                     <Form.Label>Specialization</Form.Label>
                     <Form.Control
                       as="select"
@@ -229,9 +252,6 @@ const Appointment = () => {
                       ))}
                     </Form.Control>
                   </Form.Group>
-
-
-                  
                 </Col>
                 <Col md={6}>
                   <Form.Group className="mb-3" controlId="doctorName">
