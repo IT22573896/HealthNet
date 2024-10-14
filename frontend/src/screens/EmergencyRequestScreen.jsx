@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom'; // Import useNavigate and useLocation
-import '../styles/EmergencyRequestScreen.css';
+import { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom"; // Import useNavigate and useLocation
+import "../styles/EmergencyRequestScreen.css";
 
 const EmergencyRequestScreen = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Access the passed location
   const [formData, setFormData] = useState({
-    name: '',
-    age: '',
-    contactnumber: '',
-    symptoms: '',
-    urgencylevel: '',
-    location: '',
-    hospital: '',
-    additional: '',
+    name: "",
+    age: "",
+    contactnumber: "",
+    symptoms: "",
+    urgencylevel: "",
+    location: "",
+    hospital: "",
+    additional: "",
   });
 
   const [error, setError] = useState(null);
@@ -43,26 +43,26 @@ const EmergencyRequestScreen = () => {
     setError(null);
 
     try {
-      await axios.post('/api/emergency-requests', formData);
-      toast.success('Emergency request submitted successfully!');
+      await axios.post("/api/emergency-requests", formData);
+      toast.success("Emergency request submitted successfully!");
       setFormData({
-        name: '',
-        age: '',
-        contactnumber: '',
-        symptoms: '',
-        urgencylevel: '',
-        location: '',
-        hospital: '',
-        additional: '',
+        name: "",
+        age: "",
+        contactnumber: "",
+        symptoms: "",
+        urgencylevel: "",
+        location: "",
+        hospital: "",
+        additional: "",
       });
     } catch (err) {
-      setError('Error submitting the request. Please try again.');
-      toast.error('Failed to submit the emergency request.');
+      setError("Error submitting the request. Please try again.");
+      toast.error("Failed to submit the emergency request.");
     }
   };
 
   const handleLocationClick = () => {
-    navigate('/map'); // Navigate to the map page
+    navigate("/map"); // Navigate to the map page
   };
 
   return (
@@ -174,7 +174,11 @@ const EmergencyRequestScreen = () => {
 
         {/* Button to choose location via map */}
         <div className="form-group">
-          <button type="button" className="btn btn-secondary" onClick={handleLocationClick}>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={handleLocationClick}
+          >
             Choose Location
           </button>
         </div>
@@ -184,7 +188,7 @@ const EmergencyRequestScreen = () => {
         </button>
       </form>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
       <ToastContainer />
     </div>

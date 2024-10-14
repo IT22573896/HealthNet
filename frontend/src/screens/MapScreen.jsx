@@ -1,18 +1,18 @@
-import React, { useCallback, useState } from 'react';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useCallback, useState } from "react";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const MapScreen = () => {
   const [markerPosition, setMarkerPosition] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState(null);
 
-  const center = { lat: 6.9271, lng: 79.9610 }; // Colombo, Sri Lanka
+  const center = { lat: 6.9271, lng: 79.961 }; // Colombo, Sri Lanka
   const navigate = useNavigate(); // Initialize navigate
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyC2nFGz6IFG6vnFWTI7Pa0tqVXVvzNcFJw',
-    libraries: ['places'],
+    googleMapsApiKey: "AIzaSyC2nFGz6IFG6vnFWTI7Pa0tqVXVvzNcFJw",
+    libraries: ["places"],
   });
 
   const onMapClick = useCallback((event) => {
@@ -28,19 +28,19 @@ const MapScreen = () => {
 
   const handleSearch = async () => {
     if (!searchQuery) {
-      setError('Please enter a location.');
+      setError("Please enter a location.");
       return;
     }
 
     const geocoder = new window.google.maps.Geocoder();
 
     geocoder.geocode({ address: searchQuery }, (results, status) => {
-      if (status === 'OK') {
+      if (status === "OK") {
         const location = results[0].geometry.location;
         setMarkerPosition({ lat: location.lat(), lng: location.lng() });
         setError(null);
       } else {
-        setError('Location not found. Please try again.');
+        setError("Location not found. Please try again.");
       }
     });
   };
@@ -50,12 +50,12 @@ const MapScreen = () => {
     const geocoder = new window.google.maps.Geocoder();
     const latlng = { lat: markerPosition.lat, lng: markerPosition.lng };
     geocoder.geocode({ location: latlng }, (results, status) => {
-      if (status === 'OK') {
+      if (status === "OK") {
         const selectedLocation = results[0].formatted_address;
         // Navigate back to the EmergencyRequestScreen with selected location
-        navigate('/emergencyrequest', { state: { selectedLocation } });
+        navigate("/emergencyrequest", { state: { selectedLocation } });
       } else {
-        setError('Error retrieving location name. Try again.');
+        setError("Error retrieving location name. Try again.");
       }
     });
   };
@@ -65,8 +65,18 @@ const MapScreen = () => {
   }
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
-      <div style={{ padding: '10px', position: 'absolute', zIndex: 1, top: 120, left: 1200, width: '300px' }}>
+    <div style={{ height: "100vh", width: "100%" }}>
+      <div
+        style={{
+          padding: "10px",
+          position: "absolute",
+          zIndex: 1,
+          top: 120,
+          left: 1200,
+          width: "300px",
+          marginTop: "-50px",
+        }}
+      >
         <input
           type="text"
           className="form-control"
@@ -78,11 +88,11 @@ const MapScreen = () => {
           Search
         </button>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
 
       <GoogleMap
-        mapContainerStyle={{ height: '100%', width: '100%' }}
+        mapContainerStyle={{ height: "100%", width: "100%" }}
         center={markerPosition || center}
         zoom={15}
         onClick={onMapClick}
