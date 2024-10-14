@@ -48,6 +48,10 @@ import PaymentReceiptScreen from "./screens/PaymentReceiptScreen.jsx";
 import PendingApprovalScreen from "./screens/PendingApprovalScreen.jsx";
 import MyPaymentsScreen from "./screens/Patient/MyPaymentsScreen.jsx";
 import ReceiptScreen from "./screens/Patient/ReceiptScreen.jsx";
+import Scan from "./screens/Management/Medical_Record/Scan.jsx";
+import RecordForm from "./screens/Management/Medical_Record/Recordform.jsx";
+import Recordshow from "./screens/Management/Medical_Record/Recordshow.jsx";
+import Editrecord from "./screens/Management/Medical_Record/Editrecord.jsx";
 import UpdatePatient from "./screens/Management/Patients/updatePatient.jsx";
 import UpdatePayment from "./screens/Management/payment/UpdatePayment.jsx";
 
@@ -118,6 +122,14 @@ const router = createBrowserRouter(
         />
         <Route path="/managementdashboard/emergency" element={<Emergency />} />
         <Route path="/managementdashboard/reports" element={<Reports />} />
+        <Route path="/admin/reports/scan" element={<Scan />} />
+        <Route
+          path="/admin/reports/scan/record-form"
+          element={<RecordForm />}
+        />
+        <Route path="/recordshow" element={<Recordshow />} />
+        <Route path="/updaterecord/:id" element={<Editrecord />} />
+
         <Route
           path="/managementdashboard/ambulances"
           element={<Ambulances />}
