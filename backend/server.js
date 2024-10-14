@@ -7,6 +7,8 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 // Routes
 import userRoutes from "./routes/userRoutes.js";
+import doctorRoutes from "./routes/doctorRoutes.js";
+import appointmentRoutes from "./routes/appointmentRoutes.js";
 import emergencyRequestRoutes from "./routes/emergencyRequestRoutes.js"; // Import emergency request routes
 import ambulanceRoutes from './routes/ambulanceRoutes.js'; // Import ambulance routes
 import paymentRoutes from "./routes/paymentRoutes.js";
@@ -25,10 +27,11 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/doctor", doctorRoutes);
+app.use("/api/appointments", appointmentRoutes);
 app.use("/api/emergency-requests", emergencyRequestRoutes); // Use emergency request routes
 app.use('/api/ambulances', ambulanceRoutes);
 app.use("/api/payments", paymentRoutes);
-
 
 app.get("/", (req, res) => {
   res.send("API is running....");
