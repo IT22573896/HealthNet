@@ -6,7 +6,10 @@ import {
   getAmbulances,
   getAmbulanceById,
   updateAmbulance,
-  deleteAmbulance
+  deleteAmbulance,
+  sendEmail,
+  updateAmbulanceAvailability,
+  
 } from '../controllers/ambulanceController.js';
 
 // Route to create a new ambulance (POST)
@@ -23,5 +26,13 @@ router
   .get(getAmbulanceById)
   .put(updateAmbulance)
   .delete(deleteAmbulance);
+
+
+  router.post('/send-email', sendEmail);
+
+  router.route('/:id').put(updateAmbulanceAvailability);
+
+
+
 
 export default router;

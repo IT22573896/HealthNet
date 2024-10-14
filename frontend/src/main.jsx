@@ -30,6 +30,10 @@ import AppointmentScreen from "./screens/AppointmentScreen.jsx";
 import EmergencyRequestScreen from "./screens/EmergencyRequestScreen.jsx";
 import MapScreen from './screens/MapScreen.jsx'; 
 import Ambulances from './screens/Management/Ambulances.jsx'; 
+import AddAmbulanceForm from "./screens/Management/AddAmbulanceForm";
+import UpdateAmbulanceForm from "./screens/Management/UpdateAmbulanceForm.jsx";
+import Assign from "./screens/Management/Assign.jsx"; 
+import EmergencyReport from "./screens/Management/EmergencyReport.jsx"; 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -59,6 +63,11 @@ const router = createBrowserRouter(
         <Route path="/managementdashboard/emergency" element={<Emergency />} />
         <Route path="/managementdashboard/reports" element={<Reports />} />
         <Route path="/managementdashboard/ambulances" element={<Ambulances />} />
+        <Route path="/admin/add-ambulance" element={<AddAmbulanceForm />} />
+        <Route path="/admin/update-ambulance/:id" element={<UpdateAmbulanceForm />} />
+        <Route path="/admin/assign-ambulance/:requestId" element={<Assign />} />
+        <Route path="/admin/emergency-report" element={<EmergencyReport />} />
+        
       </Route>
     </Route>
   )

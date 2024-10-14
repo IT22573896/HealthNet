@@ -1,10 +1,7 @@
 // ambulanceController.js
 import asyncHandler from 'express-async-handler';
 import Ambulance from '../models/ambulanceModel.js';
-
-// @desc    Create a new ambulance
-// @route   POST /api/ambulances
-// @access  Public or Protected (based on your needs)
+import nodemailer from 'nodemailer';
 const createAmbulance = asyncHandler(async (req, res) => {
   const {
     ambulancenumber,
@@ -30,17 +27,13 @@ const createAmbulance = asyncHandler(async (req, res) => {
   res.status(201).json(createdAmbulance);
 });
 
-// @desc    Get all ambulances
-// @route   GET /api/ambulances
-// @access  Public or Protected
+
 const getAmbulances = asyncHandler(async (req, res) => {
   const ambulances = await Ambulance.find({});
   res.json(ambulances);
 });
 
-// @desc    Get ambulance by ID
-// @route   GET /api/ambulances/:id
-// @access  Public or Protected
+
 const getAmbulanceById = asyncHandler(async (req, res) => {
   const ambulance = await Ambulance.findById(req.params.id);
 
@@ -52,9 +45,7 @@ const getAmbulanceById = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Update ambulance details
-// @route   PUT /api/ambulances/:id
-// @access  Public or Protected
+
 const updateAmbulance = asyncHandler(async (req, res) => {
   const {
     ambulancenumber,
@@ -85,13 +76,7 @@ const updateAmbulance = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Delete an ambulance
-// @route   DELETE /api/ambulances/:id
-// @access  Public or Protected
-// ambulanceController.js
-// @desc    Delete an ambulance
-// @route   DELETE /api/ambulances/:id
-// @access  Public or Protected
+
 const deleteAmbulance = asyncHandler(async (req, res) => {
     const ambulance = await Ambulance.findById(req.params.id);
   
@@ -106,10 +91,62 @@ const deleteAmbulance = asyncHandler(async (req, res) => {
   });
   
 
+
+  // Configure Nodemailer transport
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // You can use other services or SMTP settings
+  auth: {
+    user: 'duviduk@gmail.com',  // Add your email credentials in .env
+    pass: 'dbjp rfke judp kxxf'
+  },
+});
+
+// Function to send email
+const sendEmail = asyncHandler(async (req, res) => {
+  const { driveremail, emailBody } = req.body;
+
+  const mailOptions = {
+    from: 'duviduk@gmail.com',
+    to: driveremail,
+    subject: 'Ambulance Assignment: You have a trip!',
+    text: emailBody || 'You have been assigned to a new emergency trip. Please be ready to respond quickly.',
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).json({ error: 'Failed to send email' });
+    } else {
+      return res.status(200).json({ message: 'Email sent successfully!' });
+    }
+  });
+});
+
+
+
+const updateAmbulanceAvailability = asyncHandler(async (req, res) => {
+  const { availability } = req.body;
+
+  const ambulance = await Ambulance.findById(req.params.id);
+
+  if (ambulance) {
+    ambulance.availability = availability; // Update availability
+    const updatedAmbulance = await ambulance.save();
+    res.json(updatedAmbulance);
+  } else {
+    res.status(404);
+    throw new Error('Ambulance not found');
+  }
+});
+
+
+
+
 export {
   createAmbulance,
   getAmbulances,
   getAmbulanceById,
   updateAmbulance,
-  deleteAmbulance
+  deleteAmbulance,
+  sendEmail,
+  updateAmbulanceAvailability
 };
