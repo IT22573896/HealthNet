@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import { Card, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Card, Button, Row, Col } from 'react-bootstrap';
+import "../../../styles/Recordshow.css";
 
-
-const MedicalRecordScreen = () => {
+const Record = () => {
     const [records, setRecords] = useState([]);
 
     // Fetch data when the component mounts
@@ -22,11 +23,21 @@ const MedicalRecordScreen = () => {
     }, []);
 
     // Function to delete a record
-   
+    const deleteRecord = async (recordId) => {
+        try {
+            await axios.delete(`http://localhost:5000/api/rdelete/${recordId}`);
+            setRecords((prevRecords) => prevRecords.filter((record) => record._id !== recordId));
+            alert("Record deleted successfully."); // Basic feedback
+        } catch (error) {
+            console.error("Error deleting record:", error);
+            alert("Error deleting record. Please try again."); // Basic error handling
+        }
+    };
 
+    
     return (
         <div className='recordList'>
-            
+            <Link to={"/admin/reports/scan/record-form"} className='btn btn-primary mb-3'>Add New</Link>
 
             
             <Row xs={1} md={2} className="g-4">
@@ -41,7 +52,7 @@ const MedicalRecordScreen = () => {
                                             <strong>Full Name:</strong> {record.fullName}
                                         </Col>
                                         <Col xs={6}>
-                                            <strong>Date of Birth:</strong> {record.dob}
+                                            <strong>Date of Birth:</strong>{record.dob}
                                         </Col>
                                     </Row>
                                     <Row className="record-row">
@@ -75,6 +86,7 @@ const MedicalRecordScreen = () => {
                                         <Col xs={6}>
                                             <strong>Occupation:</strong> {record.occupation}
                                         </Col>
+                                       
                                     </Row>
                                     <Row className="record-row">
                                         <Col xs={6}>
@@ -140,19 +152,18 @@ const MedicalRecordScreen = () => {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer className="d-flex justify-content-between">
-                                
+                                <Link to={'/updaterecord/' + record._id}>
+                                    <Button variant="warning">Update</Button>
+                                </Link>
+                                <Button variant="danger" onClick={() => deleteRecord(record._id)}>Delete</Button>
                             </Card.Footer>
                         </Card>
                     </Col>
                 ))}
+                
             </Row>
         </div>
     );
 };
 
-export default MedicalRecordScreen
-
-
-
-
-
+export default Record;

@@ -9,8 +9,11 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 // Routes
 import userRoutes from "./routes/userRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import RecordRoutes from "./routes/RecordRoutes.js";
+
 
 const port = process.env.PORT || 5000;
+
 
 connectDB();
 
@@ -23,6 +26,9 @@ app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api", RecordRoutes);
+
+
 
 app.get("/", (req, res) => {
   res.send("API is running....");

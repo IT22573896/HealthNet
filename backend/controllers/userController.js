@@ -138,10 +138,33 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
+
+
+
+// @desc    Get all patients
+// @route   GET /api/users/patients
+// @access  Private/Admin
+// @desc    Get all patients
+// @route   GET /api/patients
+// @access  Private/Admin (if necessary)
+const getPatients = asyncHandler(async (req, res) => {
+  // Fetch only users with the role "Patient"
+  const patients = await User.find({ role: 'Patient' });
+
+  if (patients) {
+    res.json(patients);
+  } else {
+    res.status(404);
+    throw new Error('No patients found');
+  }
+});
+
+
 export {
   authUser,
   registerUser,
   logoutUser,
   getUserProfile,
   updateUserProfile,
+  getPatients,  // Export this new function
 };
