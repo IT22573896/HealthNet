@@ -9,7 +9,7 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
 import emergencyRequestRoutes from "./routes/emergencyRequestRoutes.js"; // Import emergency request routes
 import ambulanceRoutes from './routes/ambulanceRoutes.js'; // Import ambulance routes
-
+import paymentRoutes from "./routes/paymentRoutes.js";
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -27,6 +27,8 @@ app.use(cookieParser());
 app.use("/api/users", userRoutes);
 app.use("/api/emergency-requests", emergencyRequestRoutes); // Use emergency request routes
 app.use('/api/ambulances', ambulanceRoutes);
+app.use("/api/payments", paymentRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("API is running....");
