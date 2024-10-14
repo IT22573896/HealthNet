@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Col, Container, Row, Form, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminDashboardSideNavbar from "../../../components/AdminDashboardSideNavbar";
+
 const EditAppointment = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -14,7 +15,6 @@ const EditAppointment = () => {
     fee: '',
     date: '',
     starttime: '',
-    
   });
 
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ const EditAppointment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    
       // Optionally, you can also update the date and start time if needed
       await axios.put(`/api/appointments/updateAppointment/${id}`, {
         date: formData.date,
@@ -60,94 +59,114 @@ const EditAppointment = () => {
   return (
     <Container fluid className="AdminDashboard">
       <Row>
-      <Col md={3}>
+        <Col md={3}>
           <AdminDashboardSideNavbar />
         </Col>
         <Col md={9}>
           <div className="patient_list">
-            
-          <h1 className="mb-4 text-center">Edit Appointment</h1>
+            <h1 className="mb-4 text-center">Update Appointment</h1>
 
-          <Row className="justify-content-center">
-          <Col md={6} lg={4}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="name">
-              <Form.Label>Patient Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={formData.name}
-                readOnly // Read-only
-              />
-            </Form.Group>
+            <Row className="justify-content-center">
+              <Col md={12}>
+                <Form onSubmit={handleSubmit}>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="name">
+                        <Form.Label>Patient Name</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          readOnly // Read-only
+                        />
+                      </Form.Group>
+                    </Col>
 
-            <Form.Group className="mb-3" controlId="age">
-              <Form.Label>Age</Form.Label>
-              <Form.Control
-                type="number"
-                name="age"
-                value={formData.age}
-                readOnly // Read-only
-              />
-            </Form.Group>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="age">
+                        <Form.Label>Age</Form.Label>
+                        <Form.Control
+                          type="number"
+                          name="age"
+                          value={formData.age}
+                          readOnly // Read-only
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-            <Form.Group className="mb-3" controlId="hospitalName">
-              <Form.Label>Hospital Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="hospitalName"
-                value={formData.hospitalName}
-                readOnly // Read-only
-              />
-            </Form.Group>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="hospitalName">
+                        <Form.Label>Hospital Name</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="hospitalName"
+                          value={formData.hospitalName}
+                          readOnly // Read-only
+                        />
+                      </Form.Group>
+                    </Col>
 
-            <Form.Group className="mb-3" controlId="fee">
-              <Form.Label>Doctor's Fee</Form.Label>
-              <Form.Control
-                type="text"
-                name="fee"
-                value={formData.fee}
-                readOnly // Read-only
-              />
-            </Form.Group>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="fee">
+                        <Form.Label>Doctor's Fee</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="fee"
+                          value={formData.fee}
+                          readOnly // Read-only
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-            <Form.Group className="mb-3" controlId="doctorName">
-              <Form.Label>Doctor</Form.Label>
-              <Form.Control
-                type="text"
-                name="doctorName"
-                value={formData.doctorName}
-                readOnly // Read-only
-              />
-            </Form.Group>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="doctorName">
+                        <Form.Label>Doctor</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="doctorName"
+                          value={formData.doctorName}
+                          readOnly // Read-only
+                        />
+                      </Form.Group>
+                    </Col>
 
-            <Form.Group className="mb-3" controlId="date">
-              <Form.Label>Date</Form.Label>
-              <Form.Control
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange} // Allow editing
-              />
-            </Form.Group>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="date">
+                        <Form.Label>Date</Form.Label>
+                        <Form.Control
+                          type="date"
+                          name="date"
+                          value={formData.date}
+                          onChange={handleChange} // Allow editing
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-            <Form.Group className="mb-3" controlId="starttime">
-              <Form.Label>Start Time</Form.Label>
-              <Form.Control
-                type="text"
-                name="starttime"
-                value={formData.starttime}
-                onChange={handleChange} // Allow editing
-              />
-            </Form.Group>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="starttime">
+                        <Form.Label>Start Time</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="starttime"
+                          value={formData.starttime}
+                          onChange={handleChange} // Allow editing
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-           
-            <Button variant="primary" type="submit" className="w-100">
-              Submit Appointment
-            </Button>
-          </Form>
-          </Col>
-          </Row>
+                  <Button variant="primary" type="submit" className="w-100">
+                    Update Appointment
+                  </Button>
+                </Form>
+              </Col>
+            </Row>
           </div>
         </Col>
       </Row>

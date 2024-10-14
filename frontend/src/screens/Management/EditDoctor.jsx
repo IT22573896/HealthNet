@@ -17,9 +17,8 @@ const EditDoctor = () => {
     date: "",
     slot: "",
     timings: "",
-    hospitalName:"",
-    experience:""
-    
+    hospitalName: "",
+    experience: ""
   });
 
   const navigate = useNavigate(); // Initialize useNavigate
@@ -67,100 +66,124 @@ const EditDoctor = () => {
           <AdminDashboardSideNavbar />
         </Col>
         <Col md={9}>
-          <div className="patient_list">
-            <h1 className="mb-4">Edit Doctor</h1>
-
+          <div className="d-flex flex-column align-items-center patient_list">
+            <h1 className="mb-4 text-center">Update Doctor</h1> {/* Centering the heading */}
+            
             {/* Centering form and controlling width */}
-            <Row className="justify-content-center">
-              <Col md={6} lg={4}> {/* Limit the width to 4/12 (or 6/12 for medium screens) */}
+            <Row className="justify-content-center w-100">
+              <Col md={8} lg={6}> {/* Limit the width to 6/12 on medium screens */}
                 <Form className="form-reduce-font" onSubmit={handleFinish}>
-                  <Form.Group className="mb-3" controlId="doctorname">
-                    <Form.Label>Doctor Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="doctorname"
-                      value={doctor.doctorname}
-                      onChange={inputHandler}
-                      required
-                    />
-                  </Form.Group>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="doctorname">
+                        <Form.Label>Doctor Name</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="doctorname"
+                          value={doctor.doctorname}
+                          onChange={inputHandler}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
 
-                  <Form.Group className="mb-3" controlId="specialization">
-                    <Form.Label>Specialization</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="specialization"
-                      value={doctor.specialization}
-                      onChange={inputHandler}
-                      required
-                    />
-                  </Form.Group>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="specialization">
+                        <Form.Label>Specialization</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="specialization"
+                          value={doctor.specialization}
+                          onChange={inputHandler}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-                  <Form.Group className="mb-3" controlId="fee">
-                    <Form.Label>Hospital Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="hospitalName"
-                      value={doctor.hospitalName}
-                      onChange={inputHandler}
-                      required
-                    />
-                  </Form.Group>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="hospitalName">
+                        <Form.Label>Hospital Name</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="hospitalName"
+                          value={doctor.hospitalName}
+                          onChange={inputHandler}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
 
-                  <Form.Group className="mb-3" controlId="fee">
-                    <Form.Label>Experince</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="experience"
-                      value={doctor.experience}
-                      onChange={inputHandler}
-                      required
-                    />
-                  </Form.Group>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="experience">
+                        <Form.Label>Experience</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="experience"
+                          value={doctor.experience}
+                          onChange={inputHandler}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-                  <Form.Group className="mb-3" controlId="fee">
-                    <Form.Label>Fee</Form.Label>
-                    <Form.Control
-                      type="number"
-                      name="fee"
-                      value={doctor.fee}
-                      onChange={inputHandler}
-                      required
-                    />
-                  </Form.Group>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="fee">
+                        <Form.Label>Fee</Form.Label>
+                        <Form.Control
+                          type="number"
+                          name="fee"
+                          value={doctor.fee}
+                          onChange={inputHandler}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
 
-                  <Form.Group className="mb-3" controlId="starttime">
-                    <Form.Label>Start Time</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="starttime"
-                      value={doctor.starttime}
-                      onChange={inputHandler}
-                      required
-                    />
-                  </Form.Group>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="starttime">
+                        <Form.Label>Start Time</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="starttime"
+                          value={doctor.starttime}
+                          onChange={inputHandler}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-                  <Form.Group className="mb-3" controlId="date">
-                    <Form.Label>Date</Form.Label>
-                    <Form.Control
-                      type="date"
-                      name="date"
-                      value={doctor.date}
-                      onChange={inputHandler}
-                      required
-                    />
-                  </Form.Group>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="date">
+                        <Form.Label>Date</Form.Label>
+                        <Form.Control
+                          type="date"
+                          name="date"
+                          value={doctor.date}
+                          onChange={inputHandler}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
 
-                  <Form.Group className="mb-3" controlId="slot">
-                    <Form.Label>Slot</Form.Label>
-                    <Form.Control
-                      type="number"
-                      name="slot"
-                      value={doctor.slot}
-                      onChange={inputHandler}
-                      required
-                    />
-                  </Form.Group>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="slot">
+                        <Form.Label>Slot</Form.Label>
+                        <Form.Control
+                          type="number"
+                          name="slot"
+                          value={doctor.slot}
+                          onChange={inputHandler}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
                   <Form.Group className="mb-3" controlId="timings">
                     <Form.Label>Timings</Form.Label>
@@ -173,7 +196,7 @@ const EditDoctor = () => {
                     />
                   </Form.Group>
 
-                  <Button variant="primary" type="submit">
+                  <Button variant="primary" type="submit" className="w-100"> {/* Full-width button */}
                     Update Doctor
                   </Button>
                 </Form>

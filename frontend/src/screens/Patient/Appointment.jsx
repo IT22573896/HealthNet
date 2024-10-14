@@ -26,7 +26,7 @@ const Appointment = () => {
   ];
 
   const hospitalOptions = [
-    "City Hospital", "General Hospital", "Children's Hospital",
+    "City Hospital", "General Hospital,Colombo", "Children's Hospital",
     "Heart Care Center,Colombo", "Lanka Hospital,Colombo","Hemas Hospital,Colombo"
   ];
 

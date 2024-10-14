@@ -101,7 +101,7 @@ const RecommendationDoctors = () => {
       </div>
 
       {/* Align Recommend a Doctor to the left */}
-      <h2 style={{ textAlign: 'left', width: '100%' }}>Doctor Recomendation</h2>
+      <h2 style={{ textAlign: 'left', width: '100%' }}>Doctor Recommendation</h2>
       
       {/* Small description to guide users */}
       <p style={{ textAlign: 'left', width: '100%', color: '#333' }}>
