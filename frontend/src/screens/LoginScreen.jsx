@@ -36,7 +36,7 @@ const LoginScreen = () => {
         hideProgressBar: false,
         style: {
           // Customize toast styles
-          backgroundColor: "#c4f9a9",
+          backgroundColor: "#a9dcf9",
           color: "black",
           fontSize: "18px",
           fontWeight: "bold",
@@ -84,18 +84,14 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
-        <Button
-          disabled={isLoading}
-          type="submit"
-          variant="danger"
-          className="mt-3"
-        >
-          Login
-        </Button>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Button type="submit" variant="danger" className="mt-3">
+            Login
+          </Button>
+        )}
       </Form>
-
-      {isLoading && <Loader />}
 
       <Row className="py-3">
         <Col>

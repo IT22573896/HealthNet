@@ -19,6 +19,18 @@ const userSchema = mongoose.Schema(
     role: {
       type: String,
       required: true,
+      enum: ["Patient", "Management"],
+    },
+    patientDetails: {
+      dob: { type: Date },
+      phone: { type: String },
+      emergencyContact: { type: String },
+    },
+    managementDetails: {
+      section: { type: String },
+      startDate: { type: Date },
+      phone: { type: String },
+      location: { type: String },
     },
   },
   {
