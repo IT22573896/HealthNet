@@ -25,7 +25,7 @@ import Appointments from "./screens/Management/Appointments.jsx";
 import Doctors from "./screens/Management/Doctors.jsx";
 import Payments from "./screens/Management/Payments.jsx";
 import Emergency from "./screens/Management/Emergency.jsx";
-import MedicalRecordScreen from "./screens/MedicalRecordScreen.jsx";
+import MedicalRecordScreen from "./screens/Patient/MedicalRecordScreen.jsx";
 import AppointmentScreen from "./screens/AppointmentScreen.jsx";
 import EmergencyRequestScreen from "./screens/EmergencyRequestScreen.jsx";
 import MapScreen from './screens/MapScreen.jsx'; 
@@ -34,6 +34,13 @@ import AddAmbulanceForm from "./screens/Management/AddAmbulanceForm";
 import UpdateAmbulanceForm from "./screens/Management/UpdateAmbulanceForm.jsx";
 import Assign from "./screens/Management/Assign.jsx"; 
 import EmergencyReport from "./screens/Management/EmergencyReport.jsx"; 
+import PaymentScreen from "./screens/PaymentScreen.jsx";
+import PaymentReceiptScreen from "./screens/PaymentReceiptScreen.jsx";
+import PendingApprovalScreen from "./screens/PendingApprovalScreen.jsx";
+import MyPaymentsScreen from "./screens/Patient/MyPaymentsScreen.jsx";
+import ReceiptScreen from "./screens/Patient/ReceiptScreen.jsx";
+import UpdatePatient from "./screens/Management/Patients/updatePatient.jsx";
+import UpdatePayment from "./screens/Management/payment/UpdatePayment.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,12 +48,19 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+
+      {/* Patient Private routes */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/appointments" element={<AppointmentScreen />} />
         <Route path="/medicalrecord" element={<MedicalRecordScreen />} />
         <Route path="/emergencyrequest" element={<EmergencyRequestScreen />} />
         <Route path="/map" element={<MapScreen />} /> 
+        <Route path="/payment" element={<PaymentScreen />} />
+        <Route path="/paymentreceipt" element={<PaymentReceiptScreen />} />
+        <Route path="/pendingapproval" element={<PendingApprovalScreen />} />
+        <Route path="/mypayments" element={<MyPaymentsScreen />} />
+        <Route path="/receipt/:paymentId" element={<ReceiptScreen />} />
       </Route>
 
       {/* Management Private Routes */}
@@ -55,11 +69,19 @@ const router = createBrowserRouter(
         <Route path="/managementdashboard/overview" element={<Overview />} />
         <Route path="/managementdashboard/patients" element={<Patients />} />
         <Route
+          path="/managementdashboard/patients/updatepatients/:id"
+          element={<UpdatePatient />}
+        />
+        <Route
           path="/managementdashboard/appointments"
           element={<Appointments />}
         />
         <Route path="/managementdashboard/doctors" element={<Doctors />} />
         <Route path="/managementdashboard/payments" element={<Payments />} />
+        <Route
+          path="/managementdashboard/payments/updatepayments/:id"
+          element={<UpdatePayment />}
+        />
         <Route path="/managementdashboard/emergency" element={<Emergency />} />
         <Route path="/managementdashboard/reports" element={<Reports />} />
         <Route path="/managementdashboard/ambulances" element={<Ambulances />} />
