@@ -2,14 +2,18 @@ import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useProcessPaymentMutation } from "../slices/paymentApiSlice";
 import { toast } from "react-toastify";
 
 const PaymentScreen = () => {
   const [paymentMethod, setPaymentMethod] = useState("card");
-  const [amount, setAmount] = useState("");
+  // const [amount, setAmount] = useState("");
+
+  const location = useLocation();
+  const { amount } = location.state || { amount: 0 };
+
   const [cardDetails, setCardDetails] = useState({
     cardNumber: "",
     expiry: "",
@@ -108,7 +112,7 @@ const PaymentScreen = () => {
         });
 
         // Navigate to receipt screen for card payments
-        navigate("/paymentreceipt", {
+        navigate("/mypayments", {
           state: {
             paymentDetails: {
               method: paymentData.method,
@@ -147,8 +151,8 @@ const PaymentScreen = () => {
             type="number"
             placeholder="Enter amount"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            required
+            // onChange={(e) => setAmount(e.target.value)}
+            readOnly
           ></Form.Control>
         </Form.Group>
 

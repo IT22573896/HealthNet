@@ -112,7 +112,8 @@ function Doctor() {
                         </Link>
                         <button
                           onClick={() => doctorDelete(doctor._id)}
-                          className="btn btn-danger btn-sm ms-2"
+                          className="btn btn-danger btn-sm"
+                          style={{ width: "80px", marginLeft: "10px" }}
                         >
                           Delete
                         </button>

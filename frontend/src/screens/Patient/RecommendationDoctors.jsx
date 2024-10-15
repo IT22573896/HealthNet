@@ -15,7 +15,7 @@ const RecommendationDoctors = () => {
     const fetchSpecializations = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/api/doctor/fetchSpecializations"
+          "http://localhost:3000/api/doctor/fetchSpecializations"
         );
         setSpecializations(response.data);
       } catch (error) {
@@ -31,7 +31,7 @@ const RecommendationDoctors = () => {
 
     try {
       const response = await axios.get(
-        "http://localhost:3001/api/doctor/recommendDoctors",
+        "http://localhost:3000/api/doctor/recommendDoctors",
         {
           params: { specialization: selectedSpecialization },
         }
@@ -111,12 +111,12 @@ const RecommendationDoctors = () => {
 
       <form
         onSubmit={handleSubmit}
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   alignItems: "flex-start",
-        //   width: "100%",
-        // }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          width: "100%",
+        }}
       >
         <label htmlFor="specialization" style={{ marginBottom: "5px" }}>
           Select Specialization:
@@ -126,13 +126,13 @@ const RecommendationDoctors = () => {
           value={selectedSpecialization}
           onChange={(e) => setSelectedSpecialization(e.target.value)}
           required
-          // style={{
-          //   margin: "10px 0",
-          //   padding: "10px",
-          //   borderRadius: "5px",
-          //   border: "1px solid #ccc",
-          //   width: "100%", // Ensures the dropdown spans the full width of the container
-          // }}
+          style={{
+            margin: "10px 0",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+            width: "100%", // Ensures the dropdown spans the full width of the container
+          }}
         >
           <option value="">--Select--</option>
           {specializations.map((spec) => (
@@ -143,16 +143,16 @@ const RecommendationDoctors = () => {
         </select>
         <button
           type="submit"
-          // style={{
-          //   padding: "10px 15px",
-          //   backgroundColor: "#5D3FD3",
-          //   color: "#fff",
-          //   border: "none",
-          //   borderRadius: "5px",
-          //   cursor: "pointer",
-          //   fontSize: "16px",
-          //   marginTop: "10px",
-          // }}
+          style={{
+            padding: "10px 15px",
+            backgroundColor: "#5D3FD3",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            fontSize: "16px",
+            marginTop: "10px",
+          }}
         >
           Submit
         </button>
@@ -162,25 +162,25 @@ const RecommendationDoctors = () => {
         <div style={{ marginTop: "20px", textAlign: "left", width: "100%" }}>
           <h2>Recommended Doctors:</h2>
           <div
-          // style={{
-          //   display: "flex",
-          //   flexWrap: "wrap",
-          //   gap: "20px",
-          //   justifyContent: "flex-start",
-          // }}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "20px",
+              justifyContent: "flex-start",
+            }}
           >
             {doctors.map((doctor) => (
               <div
                 key={doctor._id}
-                // style={{
-                //   backgroundColor: "#0096FF",
-                //   border: "1px solid #ccc",
-                //   borderRadius: "8px",
-                //   padding: "15px",
-                //   boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-                //   width: "250px",
-                //   textAlign: "left",
-                // }}
+                style={{
+                  backgroundColor: "#0096FF",
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                  padding: "15px",
+                  boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                  width: "250px",
+                  textAlign: "left",
+                }}
               >
                 <h3 style={{ margin: "0 0 10px 0" }}>
                   <strong>👨‍⚕️</strong>

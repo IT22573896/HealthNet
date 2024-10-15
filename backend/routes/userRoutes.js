@@ -5,8 +5,7 @@ import {
   logoutUser,
   getUserProfile,
   updateUserProfile,
-
-  getPatients
+  getPatients,
   addNewUser,
   getAllUsers,
   getOneUserById,
@@ -24,8 +23,7 @@ router
   .route("/profile")
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
-  router.get('/patients', protect, getPatients); // Protect ensures only authenticated users can access
-
+router.get("/patients", protect, getPatients); // Protect ensures only authenticated users can access
 
 router.post("/addnewuser", addNewUser);
 router.get("/getallusers", getAllUsers);

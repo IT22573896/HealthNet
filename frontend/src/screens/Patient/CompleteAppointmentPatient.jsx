@@ -1,5 +1,5 @@
 // components/CompletedAppointment.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -89,13 +89,12 @@ const CompleteAppointmentPatient = () => {
           Doctor Recommendation
         </Button>
 
-        <InputGroup style={{ width: "400px", marginLeft: "10px" }}>
+        <InputGroup>
           <Form.Control
             type="text"
             placeholder="Search by Hospital Name or Doctor Name"
             value={searchTerm}
             onChange={handleSearch}
-            style={{ fontSize: "12px" }} // Adjust the font size here
           />
           <InputGroup.Text>🔍 {/* Search Icon */}</InputGroup.Text>
         </InputGroup>

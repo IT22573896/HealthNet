@@ -95,7 +95,8 @@ const Appointment = () => {
         date: "",
         starttime: "",
       });
-      navigate("/getAllAppointments");
+      // Navigate to the payment screen with the fee as state
+      navigate("/payment", { state: { amount: formData.fee } });
     } catch (error) {
       console.error("Error creating appointment:", error.response.data);
     }
@@ -109,16 +110,16 @@ const Appointment = () => {
         <Col md="auto">
           <Button
             onClick={() => navigate("/getAllAppointments")}
-            // style={{
-            //   padding: '10px 15px', // Consistent padding
-            //   whiteSpace: 'nowrap', // Prevent wrapping to the next line
-            //   textAlign: 'center', // Center text
-            //   width: 'fit-content', // Button adjusts to the content size
-            //   backgroundColor: '#00008B', // Custom background color
-            //   color: '#fff', // White text color for contrast
-            //   border: 'none', // Remove border if needed
-            //   borderRadius: '5px', // Optional: Rounded corners
-            // }}
+            style={{
+              padding: "10px 15px", // Consistent padding
+              whiteSpace: "nowrap", // Prevent wrapping to the next line
+              textAlign: "center", // Center text
+              width: "fit-content", // Button adjusts to the content size
+              backgroundColor: "#00008B", // Custom background color
+              color: "#fff", // White text color for contrast
+              border: "none", // Remove border if needed
+              borderRadius: "5px", // Optional: Rounded corners
+            }}
           >
             My Appointments
           </Button>
@@ -143,16 +144,16 @@ const Appointment = () => {
         <Col md="auto">
           <Button
             onClick={() => navigate("/getDeletedAppointmentsPatient")}
-            // style={{
-            //   padding: "10px 15px", // Consistent padding
-            //   whiteSpace: "nowrap", // Prevent wrapping
-            //   textAlign: "center",
-            //   marginLeft: "10px", // Space between buttons
-            //   width: "fit-content", // Fit content width
-            //   backgroundColor: "#0096FF", // #6495EDLight background color
-            //   color: "white", // Set text color to white
-            //   border: "none", // Remove border
-            // }}
+            style={{
+              padding: "10px 15px", // Consistent padding
+              whiteSpace: "nowrap", // Prevent wrapping
+              textAlign: "center",
+              marginLeft: "10px", // Space between buttons
+              width: "fit-content", // Fit content width
+              backgroundColor: "#0096FF", // #6495EDLight background color
+              color: "white", // Set text color to white
+              border: "none", // Remove border
+            }}
           >
             Completed Appointments
           </Button>
@@ -163,13 +164,8 @@ const Appointment = () => {
         <Col md={6} lg={5}>
           {" "}
           {/* Reduced form size */}
-          <div
-            className="form-container p-4"
-            // style={{ backgroundColor: "#e6f7ff", borderRadius: "8px" }} // Light blue background
-          >
-            <h1 className="mb-2 text-center" style={{ fontSize: "30px" }}>
-              Book An Appointment
-            </h1>
+          <div className="form-container p-4">
+            <h1 className="mb-2 text-center">Book An Appointment</h1>
 
             <Form onSubmit={handleSubmit}>
               <Row>

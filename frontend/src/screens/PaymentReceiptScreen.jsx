@@ -11,7 +11,7 @@ const PaymentReceiptScreen = () => {
     const title = "Payment Receipt";
     const body = `
       Payment Method: ${paymentDetails.method}
-      Amount: $${paymentDetails.amount}
+      Amount: Rs.${paymentDetails.amount}
       ${
         paymentDetails.method === "card"
           ? `Card Number: ${paymentDetails.cardDetails.cardNumber}`
@@ -30,7 +30,7 @@ const PaymentReceiptScreen = () => {
     `;
     doc.text(title, 10, 10);
     doc.text(body, 10, 20);
-    doc.save("payment_receipt.pdf");
+    doc.save("HealthNet payment_receipt.pdf");
   };
 
   return (
@@ -40,7 +40,7 @@ const PaymentReceiptScreen = () => {
         <Card className="mt-3">
           <Card.Body>
             <h5>Payment Method: {paymentDetails.method}</h5>
-            <p>Amount: ${paymentDetails.amount}</p>
+            <p>Amount: Rs.{paymentDetails.amount}</p>
             {paymentDetails.method === "card" && (
               <p>Card Number: {paymentDetails.cardDetails.cardNumber}</p>
             )}
