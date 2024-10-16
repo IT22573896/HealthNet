@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Col, Container, Row, Form, Button } from "react-bootstrap"; // Bootstrap components
-import "../../styles/Doctors.css"; // Reusing the same Doctors.css for styling
-import { useNavigate } from "react-router-dom"; // For navigation
+import { Col, Container, Row, Form, Button } from "react-bootstrap";
+import "../../styles/Doctors.css"; 
+import { useNavigate } from "react-router-dom";
 
 const Appointment = () => {
   const [formData, setFormData] = useState({
@@ -12,9 +12,9 @@ const Appointment = () => {
     specialization: '',
     hospitalName: '',
     doctorName: '',
-    fee: '', // New field for fee
+    fee: '', 
     date: '',
-    starttime: '', // Storing as string in 12-hour format (e.g., "6:30 p.m.")
+    starttime: '', 
   });
 
   const [doctors, setDoctors] = useState([]);
@@ -26,7 +26,7 @@ const Appointment = () => {
   ];
 
   const hospitalOptions = [
-    "City Hospital", "General Hospital,Colombo", "Children's Hospital",
+    "City Hospital", "Asiri Hospital,Colombo", "Children's Hospital,Moratuwa",
     "Heart Care Center,Colombo", "Lanka Hospital,Colombo","Hemas Hospital,Colombo"
   ];
 
@@ -40,6 +40,17 @@ const Appointment = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Validation for Patient Name: Allow only letters
+    if (name === "name" && !/^[a-zA-Z\s]*$/.test(value)) {
+      return; // Prevent changes if non-letter characters are entered
+    }
+
+    // Validation for Contact Number: Allow only 10 digits
+    if (name === "contactNumber" && value.length > 10) {
+      return; // Prevent more than 10 digits
+    }
+
     setFormData({ ...formData, [name]: value });
 
     if (name === "doctorName") {
@@ -79,19 +90,19 @@ const Appointment = () => {
 
   return (
     <Container fluid className="AdminDashboard">
-      <Row className="justify-content-center mb-4"> {/* Center the buttons */}
+      <Row className="justify-content-center mb-4"> 
         <Col md="auto">
         <Button 
               onClick={() => navigate('/getAllAppointments')}
               style={{
-                padding: '10px 15px', // Consistent padding
-                whiteSpace: 'nowrap', // Prevent wrapping to the next line
-                textAlign: 'center', // Center text
-                width: 'fit-content', // Button adjusts to the content size
-                backgroundColor: '#00008B', // Custom background color
-                color: '#fff', // White text color for contrast
-                border: 'none', // Remove border if needed
-                borderRadius: '5px', // Optional: Rounded corners
+                padding: '10px 15px',
+                whiteSpace: 'nowrap',
+                textAlign: 'center',
+                width: 'fit-content',
+                backgroundColor: '#00008B',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '5px',
               }}
             >
               My Appointments
@@ -103,14 +114,14 @@ const Appointment = () => {
         <Button 
           onClick={() => navigate('/recommendDoctors')}
           style={{
-            padding: '10px 15px', // Consistent padding
-            whiteSpace: 'nowrap',  // Prevent wrapping
+            padding: '10px 15px',
+            whiteSpace: 'nowrap',
             textAlign: 'center',
-            marginLeft: '10px',    // Space between buttons
-            width: 'fit-content',  // Fit content width
-            backgroundColor: '#0F52BA', // Light background color
-            color: 'white', // Set text color to white
-            border: 'none', // Remove border
+            marginLeft: '10px',
+            width: 'fit-content',
+            backgroundColor: '#0F52BA',
+            color: 'white',
+            border: 'none',
           }}
         >
           Doctor Recommendation
@@ -124,14 +135,14 @@ const Appointment = () => {
         <Button 
           onClick={() => navigate('/getDeletedAppointmentsPatient')}
           style={{
-            padding: '10px 15px', // Consistent padding
-            whiteSpace: 'nowrap',  // Prevent wrapping
+            padding: '10px 15px',
+            whiteSpace: 'nowrap',
             textAlign: 'center',
-            marginLeft: '10px',    // Space between buttons
-            width: 'fit-content',  // Fit content width
-            backgroundColor: '#0096FF', // #6495EDLight background color
-            color: 'white', // Set text color to white
-            border: 'none', // Remove border
+            marginLeft: '10px',
+            width: 'fit-content',
+            backgroundColor: '#0096FF',
+            color: 'white',
+            border: 'none',
           }}
         >
          Completed Appointments
@@ -140,10 +151,10 @@ const Appointment = () => {
       </Row>
 
       <Row className="justify-content-center">
-        <Col md={6} lg={5}> {/* Reduced form size */}
+        <Col md={6} lg={5}>
           <div 
             className="form-container p-4" 
-            style={{ backgroundColor: '#e6f7ff', borderRadius: '8px' }} // Light blue background
+            style={{ backgroundColor: '#e6f7ff', borderRadius: '8px' }} 
           >
             <h1 className="mb-2 text-center" style={{ fontSize: '30px' }}>Book An Appointment</h1>
 
@@ -211,7 +222,6 @@ const Appointment = () => {
 
               <Row>
                 <Col md={6}>
-
                 <Form.Group className="mb-3" controlId="specialization">
                     <Form.Label>Specialization</Form.Label>
                     <Form.Control
@@ -229,9 +239,6 @@ const Appointment = () => {
                       ))}
                     </Form.Control>
                   </Form.Group>
-
-
-                  
                 </Col>
                 <Col md={6}>
                   <Form.Group className="mb-3" controlId="doctorName">
@@ -270,11 +277,10 @@ const Appointment = () => {
                   <Form.Group className="mb-3" controlId="date">
                     <Form.Label>Date</Form.Label>
                     <Form.Control
-                      type="date"
+                      type="text"
                       name="date"
                       value={formData.date}
-                      onChange={handleChange}
-                      required
+                      readOnly
                     />
                   </Form.Group>
                 </Col>
@@ -287,17 +293,15 @@ const Appointment = () => {
                     <Form.Control
                       type="text"
                       name="starttime"
-                      placeholder="e.g., 6:30 p.m."
                       value={formData.starttime}
-                      onChange={handleChange}
-                      required
+                      readOnly
                     />
                   </Form.Group>
                 </Col>
               </Row>
 
-              <Button variant="primary" type="submit" className="w-100">
-                Submit Appointment
+              <Button variant="primary" type="submit" block>
+                Book Appointment
               </Button>
             </Form>
           </div>

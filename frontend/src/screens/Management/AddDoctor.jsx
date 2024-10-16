@@ -20,21 +20,47 @@ const AddDoctor = () => {
     experience: "",
   });
 
+  const [errors, setErrors] = useState({
+    doctorname: "",
+    specialization: "",
+  });
+
   const navigate = useNavigate(); // Initialize useNavigate
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
     setDoctor({ ...doctor, [name]: value });
+
+    // Validation for text fields (Doctor Name and Specialization)
+    if (name === "doctorname" || name === "specialization") {
+      const textRegex = /^[A-Za-z\s-.]+$/; // Allows letters, spaces, and hyphens
+      if (!textRegex.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: "Please enter valid text (letters or  spaces only).",
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+      }
+    }
   };
 
   const handleFinish = async (e) => {
     e.preventDefault();
 
+    // Check for errors before submitting
+    if (errors.doctorname || errors.specialization) {
+      toast.error("Please fix the errors before submitting.", {
+        position: "top-right",
+      });
+      return;
+    }
+
     try {
       const response = await axios.post("http://localhost:3000/api/doctor/dcreate", doctor);
-      toast.success("Record added successfully!", { position: "top-right" }); // Success message
+      toast.success("Record added successfully!", { position: "top-right" });
       console.log(response.data);
-      
+
       // Reset the form
       setDoctor({
         doctorname: "",
@@ -81,6 +107,9 @@ const AddDoctor = () => {
                           onChange={inputHandler}
                           required
                         />
+                        {errors.doctorname && (
+                          <div className="text-danger">{errors.doctorname}</div>
+                        )}
                       </Form.Group>
                     </Col>
                     <Col md={6}>
@@ -93,6 +122,9 @@ const AddDoctor = () => {
                           onChange={inputHandler}
                           required
                         />
+                        {errors.specialization && (
+                          <div className="text-danger">{errors.specialization}</div>
+                        )}
                       </Form.Group>
                     </Col>
                   </Row>
