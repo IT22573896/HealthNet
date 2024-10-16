@@ -13,7 +13,18 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("patient"); // Default role
+  const [role, setRole] = useState("Patient");
+  const [patientDetails, setPatientDetails] = useState({
+    dob: "",
+    phone: "",
+    emergencyContact: "",
+  });
+  const [managementDetails, setManagementDetails] = useState({
+    section: "",
+    startDate: "",
+    phone: "",
+    location: "",
+  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,14 +45,23 @@ const RegisterScreen = () => {
       toast.error("Passwords do not match");
     } else {
       try {
-        const res = await register({ name, email, password, role }).unwrap(); // Include role in registration
+        const registrationData = {
+          name,
+          email,
+          password,
+          role,
+          ...(role === "Patient" && { patientDetails }),
+          ...(role === "Management" && { managementDetails }),
+        };
+
+        const res = await register(registrationData).unwrap();
         dispatch(setCredentials({ ...res }));
         toast.success("Registration successful", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           style: {
-            backgroundColor: "#c4f9a9",
+            backgroundColor: "#a9dcf9",
             color: "black",
             fontSize: "18px",
             fontWeight: "bold",
@@ -49,12 +69,11 @@ const RegisterScreen = () => {
           },
         });
 
-        // Display role-specific notification for patients
+        // Role-specific notifications
         if (role === "Patient") {
           toast.info("Please complete your Medical profile", {
             position: "top-right",
             autoClose: 7000,
-            hideProgressBar: false,
             style: {
               backgroundColor: "#ebc7cd",
               color: "black",
@@ -63,30 +82,10 @@ const RegisterScreen = () => {
               fontFamily: "monospace",
             },
           });
-        }
-
-        // Display role-specific notification for doctors
-        if (role === "Doctor") {
-          toast.info("Please complete your Doctor profile", {
-            position: "top-right",
-            autoClose: 7000,
-            hideProgressBar: false,
-            style: {
-              backgroundColor: "#ebc7cd",
-              color: "black",
-              fontSize: "16px",
-              fontWeight: "bold",
-              fontFamily: "monospace",
-            },
-          });
-        }
-
-        // Display role-specific notification for management
-        if (role === "Management") {
+        } else if (role === "Management") {
           toast.info("You can access your dashboard panel now", {
             position: "top-right",
             autoClose: 7000,
-            hideProgressBar: false,
             style: {
               backgroundColor: "#ebc7cd",
               color: "black",
@@ -96,6 +95,7 @@ const RegisterScreen = () => {
             },
           });
         }
+
         navigate("/");
       } catch (err) {
         toast.error(err?.data?.message || err.error, {
@@ -123,14 +123,14 @@ const RegisterScreen = () => {
             <Form.Group className="my-2" controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
-                type="name"
+                type="text"
                 placeholder="Enter name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required
               ></Form.Control>
             </Form.Group>
-          </Col>
-          <Col md={6}>
+
             <Form.Group className="my-2" controlId="email">
               <Form.Label>Email Address</Form.Label>
               <Form.Control
@@ -138,13 +138,10 @@ const RegisterScreen = () => {
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               ></Form.Control>
             </Form.Group>
-          </Col>
-        </Row>
 
-        <Row>
-          <Col md={6}>
             <Form.Group className="my-2" controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
@@ -152,10 +149,10 @@ const RegisterScreen = () => {
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               ></Form.Control>
             </Form.Group>
-          </Col>
-          <Col md={6}>
+
             <Form.Group className="my-2" controlId="confirmPassword">
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control
@@ -163,57 +160,169 @@ const RegisterScreen = () => {
                 placeholder="Confirm password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                required
               ></Form.Control>
             </Form.Group>
-          </Col>
-        </Row>
 
-        {/* Role Selection */}
-        <Row>
-          <Col md={6}>
             <Form.Group className="my-2" controlId="role">
               <Form.Label>Select Role</Form.Label>
-              <div className="d-flex">
+              <div>
                 <Form.Check
+                  inline
                   type="radio"
-                  id="rolePatient"
                   label="Patient"
                   name="role"
                   value="Patient"
                   checked={role === "Patient"}
                   onChange={(e) => setRole(e.target.value)}
-                  className="me-3"
                 />
                 <Form.Check
+                  inline
                   type="radio"
-                  id="roleDoctor"
-                  label="Doctor"
-                  name="role"
-                  value="Doctor"
-                  checked={role === "Doctor"}
-                  onChange={(e) => setRole(e.target.value)}
-                  className="me-3"
-                />
-                <Form.Check
-                  type="radio"
-                  id="roleManagement"
                   label="Management"
                   name="role"
                   value="Management"
                   checked={role === "Management"}
                   onChange={(e) => setRole(e.target.value)}
-                  className="me-3"
                 />
               </div>
             </Form.Group>
           </Col>
+
+          <Col md={6}>
+            {/* Patient Role Fields */}
+            {role === "Patient" && (
+              <>
+                <Form.Group className="my-2" controlId="dob">
+                  <Form.Label>Date of Birth</Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={patientDetails.dob}
+                    onChange={(e) =>
+                      setPatientDetails({
+                        ...patientDetails,
+                        dob: e.target.value,
+                      })
+                    }
+                    required
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group className="my-2" controlId="phone">
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter phone number"
+                    value={patientDetails.phone}
+                    onChange={(e) =>
+                      setPatientDetails({
+                        ...patientDetails,
+                        phone: e.target.value,
+                      })
+                    }
+                    required
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group className="my-2" controlId="emergencyContact">
+                  <Form.Label>Emergency Contact</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter emergency contact"
+                    value={patientDetails.emergencyContact}
+                    onChange={(e) =>
+                      setPatientDetails({
+                        ...patientDetails,
+                        emergencyContact: e.target.value,
+                      })
+                    }
+                    required
+                  ></Form.Control>
+                </Form.Group>
+              </>
+            )}
+
+            {/* Management Role Fields */}
+            {role === "Management" && (
+              <>
+                <Form.Group className="my-2" controlId="section">
+                  <Form.Label>Section</Form.Label>
+                  <Form.Select
+                    value={managementDetails.section}
+                    onChange={(e) =>
+                      setManagementDetails({
+                        ...managementDetails,
+                        section: e.target.value,
+                      })
+                    }
+                    required
+                  >
+                    <option value="">Select section</option>
+                    <option value="Emergency">Emergency</option>
+                    <option value="Staff Handling">Staff Handling</option>
+                    <option value="Patient Reporting">Patient Reporting</option>
+                    {/* Add more options as needed */}
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group className="my-2" controlId="startDate">
+                  <Form.Label>Start Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={managementDetails.startDate}
+                    onChange={(e) =>
+                      setManagementDetails({
+                        ...managementDetails,
+                        startDate: e.target.value,
+                      })
+                    }
+                    required
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group className="my-2" controlId="location">
+                  <Form.Label>Location</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter location"
+                    value={managementDetails.location}
+                    onChange={(e) =>
+                      setManagementDetails({
+                        ...managementDetails,
+                        location: e.target.value,
+                      })
+                    }
+                    required
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group className="my-2" controlId="phone">
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter phone number"
+                    value={managementDetails.phone}
+                    onChange={(e) =>
+                      setManagementDetails({
+                        ...managementDetails,
+                        phone: e.target.value,
+                      })
+                    }
+                    required
+                  ></Form.Control>
+                </Form.Group>
+              </>
+            )}
+          </Col>
         </Row>
 
-        <Button type="submit" variant="danger" className="mt-3">
-          Register
-        </Button>
-
-        {isLoading && <Loader />}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Button type="submit" variant="danger" className="mt-3">
+            Register
+          </Button>
+        )}
       </Form>
 
       <Row className="py-3">

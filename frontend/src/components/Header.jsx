@@ -52,15 +52,14 @@ const Header = () => {
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
 
-                  {/* Role-Based Dashboard Dropdown */}
-                  {userInfo.role === "Doctor" && (
-                    <LinkContainer to="/docdashboard">
-                      <NavDropdown.Item>Doctor Dashboard</NavDropdown.Item>
+                  {userInfo.role === "Patient" && (
+                    <LinkContainer to="/mypayments">
+                      <NavDropdown.Item>My Payments</NavDropdown.Item>
                     </LinkContainer>
                   )}
 
                   {userInfo.role === "Management" && (
-                    <LinkContainer to="/managementdashboard">
+                    <LinkContainer to="/managementdashboard/overview">
                       <NavDropdown.Item>Management Dashboard</NavDropdown.Item>
                     </LinkContainer>
                   )}
