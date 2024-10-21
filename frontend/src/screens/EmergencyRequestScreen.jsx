@@ -18,17 +18,8 @@ const EmergencyRequestScreen = () => {
     hospital: '',
     additional: '',
   });
-  
-  const [error, setError] = useState(null);
 
-  // Check authentication (token) on page load
-  useEffect(() => {
-    const token = localStorage.getItem('authToken'); // Assuming the token is stored in localStorage
-    if (!token) {
-      // If no token, redirect to login
-      navigate('/login');
-    }
-  }, [navigate]);
+  const [error, setError] = useState(null);
 
   // Effect to update the location if passed from the MapScreen
   useEffect(() => {
@@ -52,20 +43,7 @@ const EmergencyRequestScreen = () => {
     setError(null);
 
     try {
-      const token = localStorage.getItem('authToken'); // Retrieve token
-      if (!token) {
-        toast.error('You must be logged in to submit a request.');
-        navigate('/login');
-        return;
-      }
-
-      // Send emergency request with authentication token
-      await axios.post('/api/emergency-requests', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Add the token to the request header
-        },
-      });
-
+      await axios.post('/api/emergency-requests', formData);
       toast.success('Emergency request submitted successfully!');
       setFormData({
         name: '',
@@ -178,7 +156,7 @@ const EmergencyRequestScreen = () => {
             name="additional"
             value={formData.additional}
             onChange={handleChange}
-            
+            required
           />
         </div>
 
